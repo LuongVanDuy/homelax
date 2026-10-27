@@ -1,0 +1,1876 @@
+{
+  "reviewedAt": "2026-10-15",
+  "license": "ODbL-1.0",
+  "attribution": "© OpenStreetMap contributors",
+  "licenseUrl": "https://www.openstreetmap.org/copyright",
+  "scope": "100 trường/cơ sở tại Hà Nội; vị trí khuôn viên từ OSM, không phải cổng vào hay lộ trình. Không phải danh sách 100 pháp nhân độc lập hoặc bảng xếp hạng.",
+  "osmSnapshot": "2026-10-15T03:16:51Z",
+  "records": [
+    {
+      "id": "dhqghn-xt",
+      "name": "Đại học Quốc gia Hà Nội (144 Xuân Thủy)",
+      "campus": "",
+      "address": "144 Xuân Thủy",
+      "latitude": 21.0388912,
+      "longitude": 105.7824312,
+      "sources": [
+        "https://www.openstreetmap.org/way/1047437396"
+      ],
+      "evidence": {
+        "osmName": "Đại học Quốc gia Hà Nội",
+        "osmAddress": "144 Đường Xuân Thủy",
+        "osmType": "way",
+        "osmId": 1047437396,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "dhqghn-hl",
+      "name": "Đại học Quốc gia Hà Nội (Hòa Lạc)",
+      "campus": "",
+      "address": "Khu đô thị Hòa Lạc",
+      "latitude": 21.0056905,
+      "longitude": 105.5035141,
+      "sources": [
+        "https://www.openstreetmap.org/way/923220611"
+      ],
+      "evidence": {
+        "osmName": "Đại học Quốc gia Hà Nội tại Hòa Lạc",
+        "osmAddress": "",
+        "osmType": "way",
+        "osmId": 923220611,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "uet",
+      "name": "Trường Đại học Công nghệ - ĐHQGHN",
+      "campus": "",
+      "address": "144 Xuân Thủy",
+      "latitude": 21.0382738,
+      "longitude": 105.7824572,
+      "sources": [
+        "https://www.openstreetmap.org/node/11609443061",
+        "https://uet.vnu.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Đại học Công nghệ",
+        "osmAddress": "",
+        "osmType": "node",
+        "osmId": 11609443061,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "hus",
+      "name": "Trường Đại học Khoa học Tự nhiên - ĐHQGHN",
+      "campus": "",
+      "address": "334 Nguyễn Trãi",
+      "latitude": 20.9959393,
+      "longitude": 105.8080085,
+      "sources": [
+        "https://www.openstreetmap.org/way/325023914",
+        "https://hus.vnu.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Khoa học Tự nhiên",
+        "osmAddress": "334 Đường Nguyễn Trãi",
+        "osmType": "way",
+        "osmId": 325023914,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "ussh",
+      "name": "Trường Đại học Khoa học Xã hội và Nhân văn - ĐHQGHN",
+      "campus": "",
+      "address": "336 Nguyễn Trãi",
+      "latitude": 20.9954594,
+      "longitude": 105.8070351,
+      "sources": [
+        "https://www.openstreetmap.org/relation/17666829",
+        "https://ussh.vnu.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Khoa học Xã hội và Nhân văn",
+        "osmAddress": "336 Đường Nguyễn Trãi",
+        "osmType": "relation",
+        "osmId": 17666829,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "ulis",
+      "name": "Trường Đại học Ngoại ngữ - ĐHQGHN",
+      "campus": "",
+      "address": "2 Phạm Văn Đồng",
+      "latitude": 21.0397121,
+      "longitude": 105.7822364,
+      "sources": [
+        "https://www.openstreetmap.org/relation/17161287",
+        "https://ulis.vnu.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Ngoại ngữ",
+        "osmAddress": "Đường Phạm Văn Đồng",
+        "osmType": "relation",
+        "osmId": 17161287,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "ueb",
+      "name": "Trường Đại học Kinh tế - ĐHQGHN",
+      "campus": "",
+      "address": "144 Xuân Thủy",
+      "latitude": 21.0379689,
+      "longitude": 105.7828716,
+      "sources": [
+        "https://www.openstreetmap.org/node/11609443059",
+        "https://ueb.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Đại học Kinh tế",
+        "osmAddress": "",
+        "osmType": "node",
+        "osmId": 11609443059,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "education",
+      "name": "Trường Đại học Giáo dục - ĐHQGHN",
+      "campus": "",
+      "address": "144 Xuân Thủy",
+      "latitude": 21.0388912,
+      "longitude": 105.7824312,
+      "sources": [
+        "https://www.openstreetmap.org/way/1047437396",
+        "https://vnu.edu.vn/truong-dai-hoc-giao-duc-du-kien-tuyen-1150-chi-tieu-dh-chinh-quy-nam-2024-post34618.html"
+      ],
+      "evidence": {
+        "osmName": "Đại học Quốc gia Hà Nội",
+        "osmAddress": "144 Đường Xuân Thủy",
+        "osmType": "way",
+        "osmId": 1047437396,
+        "amenity": "university"
+      },
+      "reviewNote": "Cơ sở Xuân Thủy dùng tâm khuôn viên chung ĐHQGHN; không dùng node cơ sở Lương Thế Vinh."
+    },
+    {
+      "id": "law-vnu",
+      "name": "Trường Đại học Luật - ĐHQGHN",
+      "campus": "",
+      "address": "144 Xuân Thủy",
+      "latitude": 21.0378978,
+      "longitude": 105.7824482,
+      "sources": [
+        "https://www.openstreetmap.org/node/11609443060",
+        "https://law.vnu.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Đại học Luật",
+        "osmAddress": "",
+        "osmType": "node",
+        "osmId": 11609443060,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "smp-vnu",
+      "name": "Trường Đại học Y Dược - ĐHQGHN",
+      "campus": "",
+      "address": "144 Xuân Thủy",
+      "latitude": 21.040311,
+      "longitude": 105.7816961,
+      "sources": [
+        "https://www.openstreetmap.org/node/11609590538",
+        "https://ump.vnu.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Y Dược",
+        "osmAddress": "Y1 144 Xuân Thuỷ",
+        "osmType": "node",
+        "osmId": 11609590538,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "hust",
+      "name": "Trường Đại học Bách khoa Hà Nội",
+      "campus": "",
+      "address": "1 Đại Cồ Việt",
+      "latitude": 21.0043689,
+      "longitude": 105.8455332,
+      "sources": [
+        "https://www.openstreetmap.org/relation/16092230",
+        "https://www.hust.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Đại học Bách khoa Hà Nội",
+        "osmAddress": "1 Đường Đại Cồ Việt",
+        "osmType": "relation",
+        "osmId": 16092230,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "neu",
+      "name": "Trường Đại học Kinh tế Quốc dân",
+      "campus": "",
+      "address": "207 Giải Phóng",
+      "latitude": 20.9994833,
+      "longitude": 105.8449781,
+      "sources": [
+        "https://www.openstreetmap.org/relation/16092231",
+        "https://neu.edu.vn"
+      ],
+      "evidence": {
+        "osmName": "Đại học Kinh tế Quốc dân",
+        "osmAddress": "207 Đường Giải Phóng",
+        "osmType": "relation",
+        "osmId": 16092231,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "ftu",
+      "name": "Trường Đại học Ngoại thương",
+      "campus": "",
+      "address": "91 Chùa Láng",
+      "latitude": 21.0225863,
+      "longitude": 105.8051833,
+      "sources": [
+        "https://www.openstreetmap.org/way/199150831",
+        "https://www.ftu.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Ngoại thương",
+        "osmAddress": "91 Chùa Láng",
+        "osmType": "way",
+        "osmId": 199150831,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "tmu",
+      "name": "Trường Đại học Thương mại",
+      "campus": "",
+      "address": "79 Hồ Tùng Mậu",
+      "latitude": 21.036572,
+      "longitude": 105.7750123,
+      "sources": [
+        "https://www.openstreetmap.org/relation/21451819",
+        "https://tmu.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Thương mại",
+        "osmAddress": "79 Đường Hồ Tùng Mậu",
+        "osmType": "relation",
+        "osmId": 21451819,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "hnue",
+      "name": "Trường Đại học Sư phạm Hà Nội",
+      "campus": "",
+      "address": "136 Xuân Thủy",
+      "latitude": 21.0390005,
+      "longitude": 105.7841768,
+      "sources": [
+        "https://www.openstreetmap.org/relation/17178908",
+        "https://hnue.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Sư phạm Hà Nội",
+        "osmAddress": "136 Đường Xuân Thuỷ",
+        "osmType": "relation",
+        "osmId": 17178908,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "huce",
+      "name": "Trường Đại học Xây dựng Hà Nội",
+      "campus": "",
+      "address": "55 Giải Phóng",
+      "latitude": 21.003234,
+      "longitude": 105.8430813,
+      "sources": [
+        "https://www.openstreetmap.org/way/217338578",
+        "https://huce.edu.vn"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Xây dựng Hà Nội",
+        "osmAddress": "55 Đường Giải Phóng",
+        "osmType": "way",
+        "osmId": 217338578,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "utc",
+      "name": "Trường Đại học Giao thông Vận tải",
+      "campus": "",
+      "address": "3 Cầu Giấy",
+      "latitude": 21.0277192,
+      "longitude": 105.8026964,
+      "sources": [
+        "https://www.openstreetmap.org/way/826346237",
+        "https://www.utc.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Giao thông Vận tải",
+        "osmAddress": "3 Đường Cầu Giấy",
+        "osmType": "way",
+        "osmId": 826346237,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "tlu",
+      "name": "Trường Đại học Thủy lợi",
+      "campus": "",
+      "address": "175 Tây Sơn",
+      "latitude": 21.0066924,
+      "longitude": 105.8257726,
+      "sources": [
+        "https://www.openstreetmap.org/way/821395356",
+        "https://www.tlu.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Thủy lợi",
+        "osmAddress": "175 Phố Tây Sơn",
+        "osmType": "way",
+        "osmId": 821395356,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "humg",
+      "name": "Trường Đại học Mỏ - Địa chất",
+      "campus": "",
+      "address": "18 Phố Viên",
+      "latitude": 21.0724498,
+      "longitude": 105.7738543,
+      "sources": [
+        "https://www.openstreetmap.org/way/699218352",
+        "https://humg.edu.vn"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Mỏ - Địa chất",
+        "osmAddress": "18 Phố Viên",
+        "osmType": "way",
+        "osmId": 699218352,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "haui",
+      "name": "Trường Đại học Công nghiệp Hà Nội",
+      "campus": "",
+      "address": "298 Cầu Diễn",
+      "latitude": 21.054247,
+      "longitude": 105.7352638,
+      "sources": [
+        "https://www.openstreetmap.org/way/828691769"
+      ],
+      "evidence": {
+        "osmName": "Đại học Công nghiệp Hà Nội",
+        "osmAddress": "298 Đường Cầu Diễn",
+        "osmType": "way",
+        "osmId": 828691769,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "hmu",
+      "name": "Trường Đại học Y Hà Nội",
+      "campus": "",
+      "address": "1 Tôn Thất Tùng",
+      "latitude": 21.002324,
+      "longitude": 105.8322323,
+      "sources": [
+        "https://www.openstreetmap.org/relation/16802530",
+        "https://hmu.edu.vn"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Y Hà Nội",
+        "osmAddress": "1 Phố Tôn Thất Tùng",
+        "osmType": "relation",
+        "osmId": 16802530,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "hup",
+      "name": "Trường Đại học Dược Hà Nội",
+      "campus": "",
+      "address": "13-15 Lê Thánh Tông",
+      "latitude": 21.0211555,
+      "longitude": 105.858749,
+      "sources": [
+        "https://www.openstreetmap.org/way/704159203"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Dược Hà Nội",
+        "osmAddress": "13-15 Phố Lê Thánh Tông",
+        "osmType": "way",
+        "osmId": 704159203,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "hlu",
+      "name": "Trường Đại học Luật Hà Nội",
+      "campus": "",
+      "address": "87 Nguyễn Chí Thanh",
+      "latitude": 21.0212581,
+      "longitude": 105.81003,
+      "sources": [
+        "https://www.openstreetmap.org/way/871887395",
+        "https://hlu.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Luật Hà Nội",
+        "osmAddress": "87 Đường Nguyễn Chí Thanh",
+        "osmType": "way",
+        "osmId": 871887395,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "huc",
+      "name": "Trường Đại học Văn hóa Hà Nội",
+      "campus": "",
+      "address": "418 La Thành",
+      "latitude": 21.0239896,
+      "longitude": 105.8228074,
+      "sources": [
+        "https://www.openstreetmap.org/relation/17666773",
+        "https://www.huc.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Văn hóa Hà Nội",
+        "osmAddress": "418 Đường La Thành",
+        "osmType": "relation",
+        "osmId": 17666773,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "skda",
+      "name": "Trường Đại học Sân khấu - Điện ảnh Hà Nội",
+      "campus": "",
+      "address": "Khu văn hóa nghệ thuật",
+      "latitude": 21.0392591,
+      "longitude": 105.7753201,
+      "sources": [
+        "https://www.openstreetmap.org/relation/16862747",
+        "https://skda.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Sân khấu - Điện ảnh Hà Nội",
+        "osmAddress": "",
+        "osmType": "relation",
+        "osmId": 16862747,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "vnufa",
+      "name": "Trường Đại học Mỹ thuật Việt Nam",
+      "campus": "",
+      "address": "42 Yết Kiêu",
+      "latitude": 21.0221453,
+      "longitude": 105.8424907,
+      "sources": [
+        "https://www.openstreetmap.org/way/857425799",
+        "https://mythuatvietnam.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Mỹ thuật Việt Nam",
+        "osmAddress": "42 Phố Yết Kiêu",
+        "osmType": "way",
+        "osmId": 857425799,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "vcad",
+      "name": "Trường Đại học Mỹ thuật Công nghiệp",
+      "campus": "",
+      "address": "360 Đê La Thành",
+      "latitude": 21.0234315,
+      "longitude": 105.8238275,
+      "sources": [
+        "https://www.openstreetmap.org/way/862095210",
+        "https://uad.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Mỹ thuật Công nghiệp",
+        "osmAddress": "360 Đường La Thành",
+        "osmType": "way",
+        "osmId": 862095210,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "epu",
+      "name": "Trường Đại học Điện lực",
+      "campus": "",
+      "address": "235 Hoàng Quốc Việt",
+      "latitude": 21.0469274,
+      "longitude": 105.7852095,
+      "sources": [
+        "https://www.openstreetmap.org/way/829264861",
+        "https://epu.edu.vn/",
+        "https://epu.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Điện lực",
+        "osmAddress": "236 Đường Hoàng Quốc Việt",
+        "osmType": "way",
+        "osmId": 829264861,
+        "amenity": "university"
+      },
+      "reviewNote": "Giữ số 235 theo website trường; OSM ghi 236. Vị trí khuôn viên khớp trường, không dùng số nhà OSM."
+    },
+    {
+      "id": "utt",
+      "name": "Trường Đại học Công nghệ Giao thông Vận tải",
+      "campus": "",
+      "address": "54 Triều Khúc",
+      "latitude": 20.9840114,
+      "longitude": 105.7982219,
+      "sources": [
+        "https://www.openstreetmap.org/way/308164874"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Công nghệ Giao thông vận tải",
+        "osmAddress": "54 Phố Triều Khúc",
+        "osmType": "way",
+        "osmId": 308164874,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "ulsa",
+      "name": "Trường Đại học Lao động - Xã hội",
+      "campus": "",
+      "address": "43 Trần Duy Hưng",
+      "latitude": 21.0122673,
+      "longitude": 105.8024559,
+      "sources": [
+        "https://www.openstreetmap.org/way/962493738",
+        "https://ulsa.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Lao động - Xã hội",
+        "osmAddress": "43 Đường Trần Duy Hưng",
+        "osmType": "way",
+        "osmId": 962493738,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "dhcd",
+      "name": "Trường Đại học Công đoàn",
+      "campus": "",
+      "address": "169 Tây Sơn",
+      "latitude": 21.0096251,
+      "longitude": 105.8265717,
+      "sources": [
+        "https://www.openstreetmap.org/relation/17666269",
+        "http://dhcd.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Công đoàn",
+        "osmAddress": "169 Phố Tây Sơn",
+        "osmType": "relation",
+        "osmId": 17666269,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "uneti",
+      "name": "Trường Đại học Kinh tế Kỹ thuật Công nghiệp",
+      "campus": "",
+      "address": "456 Minh Khai",
+      "latitude": 20.995731,
+      "longitude": 105.8656012,
+      "sources": [
+        "https://www.openstreetmap.org/way/963557982"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Kinh tế Kỹ thuật Công nghiệp",
+        "osmAddress": "Ngõ 454 Minh Khai",
+        "osmType": "way",
+        "osmId": 963557982,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "hunre",
+      "name": "Trường Đại học Tài nguyên và Môi trường Hà Nội",
+      "campus": "",
+      "address": "41A Phú Diễn",
+      "latitude": 21.0462032,
+      "longitude": 105.7621798,
+      "sources": [
+        "https://www.openstreetmap.org/way/398276334"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Tài nguyên và Môi trường Hà Nội",
+        "osmAddress": "41A Phú Diễn",
+        "osmType": "way",
+        "osmId": 398276334,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "vnuf",
+      "name": "Trường Đại học Lâm nghiệp",
+      "campus": "",
+      "address": "Thị trấn Xuân Mai",
+      "latitude": 20.9104037,
+      "longitude": 105.5746642,
+      "sources": [
+        "https://www.openstreetmap.org/way/925941337",
+        "https://vnuf.edu.vn"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Lâm nghiệp",
+        "osmAddress": "Quốc lộ 21",
+        "osmType": "way",
+        "osmId": 925941337,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "vnua",
+      "name": "Học viện Nông nghiệp Việt Nam",
+      "campus": "",
+      "address": "236 Ngô Xuân Quảng",
+      "latitude": 21.0098213,
+      "longitude": 105.9324141,
+      "sources": [
+        "https://www.openstreetmap.org/way/895143473",
+        "https://www.vnua.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Học viện Nông nghiệp Việt Nam",
+        "osmAddress": "Phố Ngô Xuân Quảng",
+        "osmType": "way",
+        "osmId": 895143473,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "hvtc",
+      "name": "Học viện Tài chính",
+      "campus": "",
+      "address": "58 Lê Văn Hiến",
+      "latitude": 21.0757833,
+      "longitude": 105.7728046,
+      "sources": [
+        "https://www.openstreetmap.org/way/699218317"
+      ],
+      "evidence": {
+        "osmName": "Học viện Tài chính",
+        "osmAddress": "58 Đường Lê Văn Hiến",
+        "osmType": "way",
+        "osmId": 699218317,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "hvnh",
+      "name": "Học viện Ngân hàng",
+      "campus": "",
+      "address": "12 Chùa Bộc",
+      "latitude": 21.0094586,
+      "longitude": 105.8290726,
+      "sources": [
+        "https://www.openstreetmap.org/way/219977469",
+        "https://hvnh.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Học viện Ngân hàng",
+        "osmAddress": "12 Phố Chùa Bộc",
+        "osmType": "way",
+        "osmId": 219977469,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "ajc",
+      "name": "Học viện Báo chí và Tuyên truyền",
+      "campus": "",
+      "address": "36 Xuân Thủy",
+      "latitude": 21.0375871,
+      "longitude": 105.7889046,
+      "sources": [
+        "https://www.openstreetmap.org/way/906733535",
+        "https://ajc.hcma.vn/"
+      ],
+      "evidence": {
+        "osmName": "Học viện Báo chí và Tuyên truyền",
+        "osmAddress": "36 Đường Xuân Thủy",
+        "osmType": "way",
+        "osmId": 906733535,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "dav",
+      "name": "Học viện Ngoại giao",
+      "campus": "",
+      "address": "69 Chùa Láng",
+      "latitude": 21.0226507,
+      "longitude": 105.806331,
+      "sources": [
+        "https://www.openstreetmap.org/way/570572166",
+        "https://dav.edu.vn"
+      ],
+      "evidence": {
+        "osmName": "Học viện Ngoại giao",
+        "osmAddress": "69 Chùa Láng",
+        "osmType": "way",
+        "osmId": 570572166,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "napa",
+      "name": "Học viện Hành chính và Quản trị công",
+      "campus": "",
+      "address": "77 Nguyễn Chí Thanh",
+      "latitude": 21.0229104,
+      "longitude": 105.8108874,
+      "sources": [
+        "https://www.openstreetmap.org/way/875680710",
+        "https://apag.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Học viện Hành chính và Quản trị công",
+        "osmAddress": "77 Đường Nguyễn Chí Thanh",
+        "osmType": "way",
+        "osmId": 875680710,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "ptit",
+      "name": "Học viện Công nghệ Bưu chính Viễn thông",
+      "campus": "",
+      "address": "96A Trần Phú",
+      "latitude": 20.9809612,
+      "longitude": 105.787077,
+      "sources": [
+        "https://www.openstreetmap.org/way/480680319",
+        "https://www.ptit.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Học viện Công nghệ Bưu chính Viễn thông",
+        "osmAddress": "Km 10 Nguyễn Trãi",
+        "osmType": "way",
+        "osmId": 480680319,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "apd",
+      "name": "Học viện Chính sách và Phát triển",
+      "campus": "",
+      "address": "Khu đô thị Nam An Khánh",
+      "latitude": 20.993641,
+      "longitude": 105.7118519,
+      "sources": [
+        "https://www.openstreetmap.org/way/1016747264"
+      ],
+      "evidence": {
+        "osmName": "Học viện Chính sách và Phát triển",
+        "osmAddress": "",
+        "osmType": "way",
+        "osmId": 1016747264,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "niem",
+      "name": "Học viện Quản lý Giáo dục",
+      "campus": "",
+      "address": "31 Phan Đình Giót",
+      "latitude": 20.9908393,
+      "longitude": 105.838385,
+      "sources": [
+        "https://www.openstreetmap.org/relation/20182814"
+      ],
+      "evidence": {
+        "osmName": "Học viện Quản lý Giáo dục",
+        "osmAddress": "31 Phố Phan Đình Giót",
+        "osmType": "relation",
+        "osmId": 20182814,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "vwa",
+      "name": "Học viện Phụ nữ Việt Nam",
+      "campus": "",
+      "address": "68 Nguyễn Chí Thanh",
+      "latitude": 21.0194894,
+      "longitude": 105.8071746,
+      "sources": [
+        "https://www.openstreetmap.org/way/906732060",
+        "https://hvpnvn.edu.vn"
+      ],
+      "evidence": {
+        "osmName": "Học viện Phụ nữ Việt Nam",
+        "osmAddress": "68 Đường Nguyễn Chí Thanh",
+        "osmType": "way",
+        "osmId": 906732060,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "vya",
+      "name": "Học viện Thanh thiếu niên Việt Nam",
+      "campus": "",
+      "address": "3 Chùa Láng",
+      "latitude": 21.0223145,
+      "longitude": 105.8086525,
+      "sources": [
+        "https://www.openstreetmap.org/way/570573187",
+        "https://vya.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Học viện Thanh thiếu niên Việt Nam",
+        "osmAddress": "3 Phố Chùa Láng",
+        "osmType": "way",
+        "osmId": 570573187,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "vatm",
+      "name": "Học viện Y Dược học cổ truyền Việt Nam",
+      "campus": "",
+      "address": "2 Trần Phú",
+      "latitude": 20.9846905,
+      "longitude": 105.7923929,
+      "sources": [
+        "https://www.openstreetmap.org/way/1077033612"
+      ],
+      "evidence": {
+        "osmName": "Học viện Y Dược học cổ truyền Việt Nam",
+        "osmAddress": "2 Đường Trần Phú",
+        "osmType": "way",
+        "osmId": 1077033612,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "vnam",
+      "name": "Học viện Âm nhạc Quốc gia Việt Nam",
+      "campus": "",
+      "address": "77 Hào Nam",
+      "latitude": 21.0229578,
+      "longitude": 105.8259312,
+      "sources": [
+        "https://www.openstreetmap.org/way/862095212",
+        "https://www.vnam.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Học viện Âm nhạc Quốc gia Việt Nam",
+        "osmAddress": "77 Phố Hào Nam",
+        "osmType": "way",
+        "osmId": 862095212,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "dance",
+      "name": "Học viện Múa Việt Nam",
+      "campus": "",
+      "address": "Khu Văn hoá nghệ thuật",
+      "latitude": 21.0381654,
+      "longitude": 105.775978,
+      "sources": [
+        "https://www.openstreetmap.org/way/570587154",
+        "https://www.vnad.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Học viện Múa Việt Nam",
+        "osmAddress": "",
+        "osmType": "way",
+        "osmId": 570587154,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "upes1",
+      "name": "Trường Đại học Sư phạm Thể dục Thể thao Hà Nội",
+      "campus": "",
+      "address": "Phượng Bãi",
+      "latitude": 20.9367721,
+      "longitude": 105.7094315,
+      "sources": [
+        "https://www.openstreetmap.org/way/792420834",
+        "https://dhsptdtthanoi.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Sư phạm Thể dục Thể thao Hà Nội",
+        "osmAddress": "Đường Hoa",
+        "osmType": "way",
+        "osmId": 792420834,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "mta",
+      "name": "Học viện Kỹ thuật Quân sự",
+      "campus": "",
+      "address": "236 Hoàng Quốc Việt",
+      "latitude": 21.0483175,
+      "longitude": 105.7856728,
+      "sources": [
+        "https://www.openstreetmap.org/way/37770763",
+        "https://mta.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Học viện Kĩ thuật Quân sự",
+        "osmAddress": "236 Đường Hoàng Quốc Việt",
+        "osmType": "way",
+        "osmId": 37770763,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "vmmu",
+      "name": "Học viện Quân y",
+      "campus": "",
+      "address": "160 Phùng Hưng",
+      "latitude": 20.9665518,
+      "longitude": 105.7884356,
+      "sources": [
+        "https://www.openstreetmap.org/way/838172055",
+        "https://file3.qdnd.vn/data/documents/0/2023/03/03/phucthang/chi%20tieu%20tuyen%20sinh%20cac%20nha%20truong%20quan%20doi%20nam%202023.pdf"
+      ],
+      "evidence": {
+        "osmName": "Học viện Quân y",
+        "osmAddress": "160 Đường Phùng Hưng",
+        "osmType": "way",
+        "osmId": 838172055,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "mha",
+      "name": "Học viện Hậu cần",
+      "campus": "",
+      "address": "Phường Bồ Đề",
+      "latitude": 21.0653074,
+      "longitude": 105.8758943,
+      "sources": [
+        "https://www.openstreetmap.org/way/1175934342",
+        "https://hocvienhaucan.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Học viện Hậu cần",
+        "osmAddress": "",
+        "osmType": "way",
+        "osmId": 1175934342,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "hcct",
+      "name": "Học viện Chính trị (Bộ Quốc phòng)",
+      "campus": "",
+      "address": "124 Ngô Quyền",
+      "latitude": 20.9738368,
+      "longitude": 105.7697884,
+      "sources": [
+        "https://www.openstreetmap.org/way/942415474"
+      ],
+      "evidence": {
+        "osmName": "Học viện Chính trị",
+        "osmAddress": "",
+        "osmType": "way",
+        "osmId": 942415474,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "misa",
+      "name": "Học viện Khoa học Quân sự",
+      "campus": "",
+      "address": "Lai Xá",
+      "latitude": 21.0688241,
+      "longitude": 105.7182172,
+      "sources": [
+        "https://www.openstreetmap.org/way/550031669",
+        "https://hvkhqs.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Học viện Khoa học Quân sự",
+        "osmAddress": "",
+        "osmType": "way",
+        "osmId": 550031669,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "bpa",
+      "name": "Học viện Biên phòng",
+      "campus": "",
+      "address": "1 Thanh Vị",
+      "latitude": 21.113573,
+      "longitude": 105.4930236,
+      "sources": [
+        "https://www.openstreetmap.org/way/951204738",
+        "https://uongbi.gov.vn/ckfinder/userfiles/files/67-TB%20tuy%E1%BB%83n%20sinh%20qu%C3%A2n%20s%E1%BB%B1%202026.pdf"
+      ],
+      "evidence": {
+        "osmName": "Học viện Biên phòng",
+        "osmAddress": "",
+        "osmType": "way",
+        "osmId": 951204738,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "actvn",
+      "name": "Học viện Kỹ thuật Mật mã",
+      "campus": "",
+      "address": "141 Chiến Thắng",
+      "latitude": 20.9808071,
+      "longitude": 105.7963145,
+      "sources": [
+        "https://www.openstreetmap.org/way/1172381259"
+      ],
+      "evidence": {
+        "osmName": "Học viện Kỹ thuật Mật mã",
+        "osmAddress": "",
+        "osmType": "way",
+        "osmId": 1172381259,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "ppa",
+      "name": "Học viện Cảnh sát nhân dân",
+      "campus": "",
+      "address": "Phạm Văn Nghị",
+      "latitude": 21.0670452,
+      "longitude": 105.765308,
+      "sources": [
+        "https://www.openstreetmap.org/way/699218280"
+      ],
+      "evidence": {
+        "osmName": "Học viện Cảnh sát Nhân dân",
+        "osmAddress": "Đường Phạm Văn Nghị",
+        "osmType": "way",
+        "osmId": 699218280,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "t31",
+      "name": "Học viện An ninh nhân dân",
+      "campus": "cơ sở 1",
+      "address": "125 Trần Phú",
+      "latitude": 20.9807452,
+      "longitude": 105.7919806,
+      "sources": [
+        "https://www.openstreetmap.org/way/621979168"
+      ],
+      "evidence": {
+        "osmName": "Học viện An ninh Nhân dân",
+        "osmAddress": "125 Đường Trần Phú",
+        "osmType": "way",
+        "osmId": 621979168,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "fpt",
+      "name": "Trường Đại học FPT",
+      "campus": "",
+      "address": "Khu CNC Hòa Lạc",
+      "latitude": 21.013538,
+      "longitude": 105.5252156,
+      "sources": [
+        "https://www.openstreetmap.org/way/800878327",
+        "https://hanoi.fpt.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học FPT",
+        "osmAddress": "",
+        "osmType": "way",
+        "osmId": 800878327,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "phenikaa",
+      "name": "Trường Đại học Phenikaa",
+      "campus": "",
+      "address": "Đường Nguyễn Trác",
+      "latitude": 20.9610991,
+      "longitude": 105.7474566,
+      "sources": [
+        "https://www.openstreetmap.org/way/973433275",
+        "https://phenikaa-uni.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Đại học Phenikaa",
+        "osmAddress": "Phố Nguyễn Trác",
+        "osmType": "way",
+        "osmId": 973433275,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "vinuni",
+      "name": "Trường Đại học VinUni",
+      "campus": "",
+      "address": "KĐT Vinhomes Ocean Park",
+      "latitude": 20.9889167,
+      "longitude": 105.9460198,
+      "sources": [
+        "https://www.openstreetmap.org/way/777888670",
+        "https://vinuni.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học VinUni",
+        "osmAddress": "",
+        "osmType": "way",
+        "osmId": 777888670,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "thang-long",
+      "name": "Trường Đại học Thăng Long",
+      "campus": "",
+      "address": "Đường Nghiêm Xuân Yêm",
+      "latitude": 20.9762317,
+      "longitude": 105.8157877,
+      "sources": [
+        "https://www.openstreetmap.org/way/264109915",
+        "https://thanglong.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Thăng Long",
+        "osmAddress": "Đường Nghiêm Xuân Yêm",
+        "osmType": "way",
+        "osmId": 264109915,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "phuong-dong",
+      "name": "Trường Đại học Phương Đông",
+      "campus": "",
+      "address": "171 Trung Kính",
+      "latitude": 21.0159033,
+      "longitude": 105.7937776,
+      "sources": [
+        "https://www.openstreetmap.org/way/1077033616"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Phương Đông",
+        "osmAddress": "Phố Trung Kính",
+        "osmType": "way",
+        "osmId": 1077033616,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "dai-nam",
+      "name": "Trường Đại học Đại Nam",
+      "campus": "",
+      "address": "1 Xốm",
+      "latitude": 20.9471049,
+      "longitude": 105.7592514,
+      "sources": [
+        "https://www.openstreetmap.org/way/973215954",
+        "https://dainam.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Đại Nam",
+        "osmAddress": "1 Phố Xốm",
+        "osmType": "way",
+        "osmId": 973215954,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "hoa-binh",
+      "name": "Trường Đại học Hòa Bình",
+      "campus": "",
+      "address": "CC2 Bùi Xuân Phái",
+      "latitude": 21.0317959,
+      "longitude": 105.7658617,
+      "sources": [
+        "https://www.openstreetmap.org/way/875488223"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Victoria Hòa Bình",
+        "osmAddress": "8 Phố Bùi Xuân Phái",
+        "osmType": "way",
+        "osmId": 875488223,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "hubt",
+      "name": "Trường Đại học Kinh doanh và Công nghệ Hà Nội",
+      "campus": "",
+      "address": "29A Ngõ 124 Vĩnh Tuy",
+      "latitude": 20.9996634,
+      "longitude": 105.8779734,
+      "sources": [
+        "https://www.openstreetmap.org/way/1181961551"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Kinh doanh và Công nghệ Hà Nội",
+        "osmAddress": "29A Ngõ 124 Phố Vĩnh Tuy",
+        "osmType": "way",
+        "osmId": 1181961551,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "thanh-do",
+      "name": "Trường Đại học Thành Đô",
+      "campus": "",
+      "address": "Km 15 QL32",
+      "latitude": 21.0650189,
+      "longitude": 105.7229835,
+      "sources": [
+        "https://www.openstreetmap.org/way/642181078",
+        "https://thanhdo.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Thành Đô",
+        "osmAddress": "",
+        "osmType": "way",
+        "osmId": 642181078,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "eaut",
+      "name": "Trường Đại học Công nghệ Đông Á",
+      "campus": "",
+      "address": "Đường Trịnh Văn Bô, Hà Nội",
+      "latitude": 21.0400027,
+      "longitude": 105.741891,
+      "sources": [
+        "https://www.openstreetmap.org/node/10048614528",
+        "https://eaut.edu.vn/",
+        "https://eaut.edu.vn/khong-phan-loai/page/2/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Công nghệ Đông Á",
+        "osmAddress": "Phố Trịnh Văn Bô",
+        "osmType": "node",
+        "osmId": 10048614528,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "fbu",
+      "name": "Trường Đại học Tài chính - Ngân hàng Hà Nội",
+      "campus": "",
+      "address": "136-138 Phạm Văn Đồng",
+      "latitude": 21.0759601,
+      "longitude": 105.7855892,
+      "sources": [
+        "https://www.openstreetmap.org/way/1181964362"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Tài chính - Ngân hàng Hà Nội",
+        "osmAddress": "136 Đường Phạm Văn Đồng",
+        "osmType": "way",
+        "osmId": 1181964362,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "hau",
+      "name": "Trường Đại học Kiến trúc Hà Nội",
+      "campus": "",
+      "address": "129 Trần Phú",
+      "latitude": 20.9804085,
+      "longitude": 105.7896307,
+      "sources": [
+        "https://www.openstreetmap.org/way/621979166",
+        "https://hau.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Kiến trúc Hà Nội",
+        "osmAddress": "Km10",
+        "osmType": "way",
+        "osmId": 621979166,
+        "amenity": "college"
+      }
+    },
+    {
+      "id": "pkkq",
+      "name": "Học viện Phòng không - Không quân",
+      "campus": "",
+      "address": "Đoài Phương",
+      "latitude": 21.0991044,
+      "longitude": 105.4829812,
+      "sources": [
+        "https://www.openstreetmap.org/way/951420407"
+      ],
+      "evidence": {
+        "osmName": "Học viện Phòng không Không quân",
+        "osmAddress": "",
+        "osmType": "way",
+        "osmId": 951420407,
+        "amenity": "college"
+      }
+    },
+    {
+      "id": "cdsptw",
+      "name": "Trường Cao đẳng Sư phạm Trung ương",
+      "campus": "",
+      "address": "Số 387 Hoàng Quốc Việt",
+      "latitude": 21.0453651,
+      "longitude": 105.7921518,
+      "sources": [
+        "https://www.openstreetmap.org/way/880260994"
+      ],
+      "evidence": {
+        "osmName": "Trường Cao đẳng Sư phạm Trung ương",
+        "osmAddress": "",
+        "osmType": "way",
+        "osmId": 880260994,
+        "amenity": "college"
+      }
+    },
+    {
+      "id": "hncaa",
+      "name": "Trường Cao đẳng Nghệ thuật Hà Nội",
+      "campus": "",
+      "address": "Số 7 Hai Bà Trưng",
+      "latitude": 21.02294,
+      "longitude": 105.8559839,
+      "sources": [
+        "https://www.openstreetmap.org/way/704147251"
+      ],
+      "evidence": {
+        "osmName": "Trường Cao đẳng Nghệ thuật Hà Nội",
+        "osmAddress": "7 Phố Hai Bà Trưng",
+        "osmType": "way",
+        "osmId": 704147251,
+        "amenity": "college"
+      }
+    },
+    {
+      "id": "hcaol",
+      "name": "Trường Cao đẳng Du lịch Hà Nội",
+      "campus": "",
+      "address": "Số 236 Hoàng Quốc Việt",
+      "latitude": 21.0469244,
+      "longitude": 105.7837511,
+      "sources": [
+        "https://www.openstreetmap.org/way/1023330893",
+        "https://htc.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Cao đẳng Du lịch Hà Nội",
+        "osmAddress": "236 Đường Hoàng Quốc Việt",
+        "osmType": "way",
+        "osmId": 1023330893,
+        "amenity": "college"
+      }
+    },
+    {
+      "id": "yshanoi",
+      "name": "Trường Cao đẳng Y tế Hà Nội",
+      "campus": "",
+      "address": "Số 35 Đoàn Thị Điểm",
+      "latitude": 21.0261842,
+      "longitude": 105.8318299,
+      "sources": [
+        "https://www.openstreetmap.org/way/860294715"
+      ],
+      "evidence": {
+        "osmName": "Trường Cao đẳng Y tế Hà Nội",
+        "osmAddress": "35 Đoàn Thi Điểm",
+        "osmType": "way",
+        "osmId": 860294715,
+        "amenity": "college"
+      }
+    },
+    {
+      "id": "hnee",
+      "name": "Trường Cao đẳng Điện tử - Điện lạnh Hà Nội",
+      "campus": "",
+      "address": "Số 10 Nguyễn Văn Huyên",
+      "latitude": 21.0369488,
+      "longitude": 105.7971183,
+      "sources": [
+        "https://www.openstreetmap.org/way/962831169",
+        "https://dtdl.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Cao đẳng Điện tử - Điện lạnh Hà Nội",
+        "osmAddress": "10 Đường Nguyễn Văn Huyên",
+        "osmType": "way",
+        "osmId": 962831169,
+        "amenity": "college"
+      }
+    },
+    {
+      "id": "cdxd1",
+      "name": "Trường Cao đẳng Xây dựng số 1",
+      "campus": "",
+      "address": "Đường Trung Văn",
+      "latitude": 20.990061,
+      "longitude": 105.7863112,
+      "sources": [
+        "https://www.openstreetmap.org/way/1067453685"
+      ],
+      "evidence": {
+        "osmName": "Trường Cao đẳng Xây dựng số 1",
+        "osmAddress": "",
+        "osmType": "way",
+        "osmId": 1067453685,
+        "amenity": "college"
+      }
+    },
+    {
+      "id": "hnivc",
+      "name": "Trường Cao đẳng Công thương Hà Nội",
+      "campus": "",
+      "address": "Số 54A1 Vũ Trọng Phụng",
+      "latitude": 20.9988563,
+      "longitude": 105.8091096,
+      "sources": [
+        "https://www.openstreetmap.org/way/1058072007"
+      ],
+      "evidence": {
+        "osmName": "Trường Cao đẳng Công thương Hà Nội",
+        "osmAddress": "54A1 Đường Vũ Trọng Phụng",
+        "osmType": "way",
+        "osmId": 1058072007,
+        "amenity": "college"
+      }
+    },
+    {
+      "id": "htc",
+      "name": "Trường Cao đẳng Thương mại và Du lịch Hà Nội",
+      "campus": "",
+      "address": "Đường Phạm Văn Đồng",
+      "latitude": 21.0397384,
+      "longitude": 105.7794277,
+      "sources": [
+        "https://www.openstreetmap.org/way/954542101",
+        "https://hcct.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Cao đẳng Thương mại và Du lịch Hà Nội",
+        "osmAddress": "Đường Phạm Văn Đồng",
+        "osmType": "way",
+        "osmId": 954542101,
+        "amenity": "college"
+      }
+    },
+    {
+      "id": "hht",
+      "name": "Trường Cao đẳng Nghề Công nghệ cao Hà Nội",
+      "campus": "",
+      "address": "Phố Nhuệ Giang",
+      "latitude": 21.0205401,
+      "longitude": 105.7500239,
+      "sources": [
+        "https://www.openstreetmap.org/way/1077029464"
+      ],
+      "evidence": {
+        "osmName": "Trường Cao đẳng Công nghệ cao Hà Nội (Cơ sở 1)",
+        "osmAddress": "",
+        "osmType": "way",
+        "osmId": 1077029464,
+        "amenity": "college"
+      }
+    },
+    {
+      "id": "fpt-poly",
+      "name": "Trường Cao đẳng FPT Polytechnic (Hà Nội)",
+      "campus": "",
+      "address": "Số 13 Trịnh Văn Bô",
+      "latitude": 21.0380074,
+      "longitude": 105.7468965,
+      "sources": [
+        "https://www.openstreetmap.org/node/9593623734"
+      ],
+      "evidence": {
+        "osmName": "Cao đẳng FPT Polytechnic",
+        "osmAddress": "Phố Trịnh Văn Bô",
+        "osmType": "node",
+        "osmId": 9593623734,
+        "amenity": "college"
+      }
+    },
+    {
+      "id": "tuetinh",
+      "name": "Trường Cao đẳng Y Dược Tuệ Tĩnh Hà Nội",
+      "campus": "",
+      "address": "Số 51 Phú Diễn",
+      "latitude": 21.0438356,
+      "longitude": 105.7616984,
+      "sources": [
+        "https://www.openstreetmap.org/way/1463043028"
+      ],
+      "evidence": {
+        "osmName": "Trường Cao đẳng Y Dược Tuệ Tĩnh Hà Nội",
+        "osmAddress": "51 Đường Phú Diễn",
+        "osmType": "way",
+        "osmId": 1463043028,
+        "amenity": "college"
+      }
+    },
+    {
+      "id": "HN-OSM-node-8823695658",
+      "name": "Trường Đại học Khoa học và Công nghệ Hà Nội",
+      "campus": "",
+      "address": "18 Đường Hoàng Quốc Việt, Hà Nội",
+      "latitude": 21.048152,
+      "longitude": 105.8011776,
+      "sources": [
+        "https://www.openstreetmap.org/node/8823695658",
+        "https://www.usth.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Khoa học và Công nghệ Hà Nội",
+        "osmAddress": "18 Đường Hoàng Quốc Việt",
+        "osmType": "node",
+        "osmId": 8823695658,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "HN-OSM-way-829266414",
+      "name": "Trường Đại học Hà Nội",
+      "campus": "",
+      "address": "Km 9 Đường Nguyễn Trãi, Hà Nội",
+      "latitude": 20.9892798,
+      "longitude": 105.7957075,
+      "sources": [
+        "https://www.openstreetmap.org/way/829266414"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Hà Nội",
+        "osmAddress": "Km 9 Đường Nguyễn Trãi",
+        "osmType": "way",
+        "osmId": 829266414,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "HN-OSM-way-699218281",
+      "name": "Trường Đại học Y tế Công cộng",
+      "campus": "",
+      "address": "1A Đường Đức Thắng, Hà Nội",
+      "latitude": 21.0822026,
+      "longitude": 105.7799987,
+      "sources": [
+        "https://www.openstreetmap.org/way/699218281"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Y tế Công cộng",
+        "osmAddress": "1A Đường Đức Thắng",
+        "osmType": "way",
+        "osmId": 699218281,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "HN-OSM-way-1078177954",
+      "name": "Trường Đại học Thủ đô Hà Nội",
+      "campus": "",
+      "address": "98 Phố Dương Quảng Hàm, Hà Nội",
+      "latitude": 21.0361362,
+      "longitude": 105.8012079,
+      "sources": [
+        "https://www.openstreetmap.org/way/1078177954"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Thủ đô Hà Nội",
+        "osmAddress": "98 Phố Dương Quảng Hàm",
+        "osmType": "way",
+        "osmId": 1078177954,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "HN-OSM-way-570586967",
+      "name": "Học viện Tư pháp Việt Nam",
+      "campus": "",
+      "address": "Phố Trần Vỹ, Hà Nội",
+      "latitude": 21.0459415,
+      "longitude": 105.7735714,
+      "sources": [
+        "https://www.openstreetmap.org/way/570586967",
+        "https://www.hocvientuphap.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Học viện Tư pháp Việt Nam",
+        "osmAddress": "Phố Trần Vỹ",
+        "osmType": "way",
+        "osmId": 570586967,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "HN-OSM-way-1077637429",
+      "name": "Trường Đại học Công nghệ và Quản lý Hữu Nghị",
+      "campus": "",
+      "address": "1-4 Cụm tiểu thủ công nghiệp Hai Bà Trưng, Hà Nội",
+      "latitude": 20.9828052,
+      "longitude": 105.8652085,
+      "sources": [
+        "https://www.openstreetmap.org/way/1077637429",
+        "https://news.utm.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Công nghệ và Quản lý Hữu Nghị",
+        "osmAddress": "1-4 Cụm tiểu thủ công nghiệp Hai Bà Trưng",
+        "osmType": "way",
+        "osmId": 1077637429,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "HN-OSM-way-906631345",
+      "name": "Trường Đại học Văn hóa Nghệ thuật Quân đội",
+      "campus": "",
+      "address": "101 Đường Nguyễn Chí Thanh, Hà Nội",
+      "latitude": 21.0172185,
+      "longitude": 105.8073682,
+      "sources": [
+        "https://www.openstreetmap.org/way/906631345",
+        "http://vnq.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Đại học Văn hóa Nghệ thuật Quân đội",
+        "osmAddress": "101 Đường Nguyễn Chí Thanh",
+        "osmType": "way",
+        "osmId": 906631345,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "HN-OSM-way-892554716",
+      "name": "Học viện Khoa học Xã hội",
+      "campus": "",
+      "address": "477 Đường Nguyễn Trãi, Hà Nội",
+      "latitude": 20.9894832,
+      "longitude": 105.8011523,
+      "sources": [
+        "https://www.openstreetmap.org/way/892554716"
+      ],
+      "evidence": {
+        "osmName": "Học viện Khoa học Xã hội",
+        "osmAddress": "477 Đường Nguyễn Trãi",
+        "osmType": "way",
+        "osmId": 892554716,
+        "amenity": "university"
+      }
+    },
+    {
+      "id": "HN-OSM-way-199956925",
+      "name": "Học viện Quốc phòng",
+      "campus": "",
+      "address": "93 Đường Hoàng Quốc Việt, Hà Nội",
+      "latitude": 21.043252,
+      "longitude": 105.8015074,
+      "sources": [
+        "https://www.openstreetmap.org/way/199956925",
+        "https://nda.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Học viện Quốc phòng",
+        "osmAddress": "93 Đường Hoàng Quốc Việt",
+        "osmType": "way",
+        "osmId": 199956925,
+        "amenity": "college"
+      }
+    },
+    {
+      "id": "HN-OSM-way-886615030",
+      "name": "Trường Cao đẳng Cộng đồng Hà Nội",
+      "campus": "",
+      "address": "102 Phố Trung Kính, Hà Nội",
+      "latitude": 21.0165576,
+      "longitude": 105.7948258,
+      "sources": [
+        "https://www.openstreetmap.org/way/886615030",
+        "https://www.hncc.edu.vn"
+      ],
+      "evidence": {
+        "osmName": "Trường Cao đẳng Cộng đồng Hà Nội",
+        "osmAddress": "102 Phố Trung Kính",
+        "osmType": "way",
+        "osmId": 886615030,
+        "amenity": "college"
+      }
+    },
+    {
+      "id": "HN-OSM-way-888629818",
+      "name": "Trường Cao đẳng nghề Công nghiệp Hà Nội",
+      "campus": "",
+      "address": "Phố Thái Thịnh, Hà Nội",
+      "latitude": 21.0130009,
+      "longitude": 105.8151075,
+      "sources": [
+        "https://www.openstreetmap.org/way/888629818"
+      ],
+      "evidence": {
+        "osmName": "Trường Cao đẳng nghề Công nghiệp Hà Nội",
+        "osmAddress": "Phố Thái Thịnh",
+        "osmType": "way",
+        "osmId": 888629818,
+        "amenity": "college"
+      }
+    },
+    {
+      "id": "HN-OSM-way-908664430",
+      "name": "Trường Cao đẳng nghề Long Biên",
+      "campus": "",
+      "address": "765 Nguyễn Văn Linh, Hà Nội",
+      "latitude": 21.0285309,
+      "longitude": 105.92074,
+      "sources": [
+        "https://www.openstreetmap.org/way/908664430"
+      ],
+      "evidence": {
+        "osmName": "Trường Cao đẳng nghề Long Biên",
+        "osmAddress": "765 Nguyễn Văn Linh",
+        "osmType": "way",
+        "osmId": 908664430,
+        "amenity": "college"
+      }
+    },
+    {
+      "id": "HN-OSM-way-958618334",
+      "name": "Trường Cao đẳng Bách Nghệ Hà Nội",
+      "campus": "",
+      "address": "7 Đường Mỹ Đình, Hà Nội",
+      "latitude": 21.0273031,
+      "longitude": 105.7746634,
+      "sources": [
+        "https://www.openstreetmap.org/way/958618334",
+        "https://hbnc.edu.vn/"
+      ],
+      "evidence": {
+        "osmName": "Trường Cao đẳng Bách Nghệ Hà Nội",
+        "osmAddress": "7 Đường Mỹ Đình",
+        "osmType": "way",
+        "osmId": 958618334,
+        "amenity": "college"
+      }
+    },
+    {
+      "id": "HN-OSM-way-1066900821",
+      "name": "Trường Cao đẳng Cơ điện Hà Nội (Trụ sở chính)",
+      "campus": "",
+      "address": "160 Phố Mai Dịch, Hà Nội",
+      "latitude": 21.0446062,
+      "longitude": 105.7762567,
+      "sources": [
+        "https://www.openstreetmap.org/way/1066900821"
+      ],
+      "evidence": {
+        "osmName": "Trường Cao đẳng Cơ điện Hà Nội (Trụ sở chính)",
+        "osmAddress": "160 Phố Mai Dịch",
+        "osmType": "way",
+        "osmId": 1066900821,
+        "amenity": "college"
+      }
+    },
+    {
+      "id": "HN-OSM-way-1067047461",
+      "name": "Trường Cao đẳng Giao thông vận tải Trung ương I (cơ sở Bắc Từ Liêm)",
+      "campus": "",
+      "address": "137 Đường Tân Xuân, Hà Nội",
+      "latitude": 21.088378,
+      "longitude": 105.7850093,
+      "sources": [
+        "https://www.openstreetmap.org/way/1067047461"
+      ],
+      "evidence": {
+        "osmName": "Trường Cao đẳng Giao thông vận tải Trung ương I (cơ sở Bắc Từ Liêm)",
+        "osmAddress": "137 Đường Tân Xuân",
+        "osmType": "way",
+        "osmId": 1067047461,
+        "amenity": "college"
+      }
+    },
+    {
+      "id": "HN-OSM-way-1227075973",
+      "name": "Trường Cao đẳng Thông tin và Truyền thông",
+      "campus": "",
+      "address": "Đường Cầu Diễn, Hà Nội",
+      "latitude": 21.046068,
+      "longitude": 105.751838,
+      "sources": [
+        "https://www.openstreetmap.org/way/1227075973"
+      ],
+      "evidence": {
+        "osmName": "Trường Cao đẳng Thông tin và Truyền thông",
+        "osmAddress": "Đường Cầu Diễn",
+        "osmType": "way",
+        "osmId": 1227075973,
+        "amenity": "college"
+      }
+    },
+    {
+      "id": "HN-OSM-way-1077007433",
+      "name": "Trường Cao đẳng Công nghệ và Thương mại Hà Nội",
+      "campus": "",
+      "address": "252 Hạ Hội, Hà Nội",
+      "latitude": 21.0876164,
+      "longitude": 105.7187648,
+      "sources": [
+        "https://www.openstreetmap.org/way/1077007433"
+      ],
+      "evidence": {
+        "osmName": "Trường Cao đẳng Công nghệ và Thương mại Hà Nội",
+        "osmAddress": "252 Hạ Hội",
+        "osmType": "way",
+        "osmId": 1077007433,
+        "amenity": "college"
+      }
+    },
+    {
+      "id": "HN-OSM-way-876528926",
+      "name": "Học viện Chính trị Quốc gia Hồ Chí Minh",
+      "campus": "",
+      "address": "419 Đường Hoàng Quốc Việt, Hà Nội",
+      "latitude": 21.044741,
+      "longitude": 105.7883501,
+      "sources": [
+        "https://www.openstreetmap.org/way/876528926",
+        "https://hcma.vn"
+      ],
+      "evidence": {
+        "osmName": "Học viện Chính trị Quốc gia Hồ Chí Minh",
+        "osmAddress": "419 Đường Hoàng Quốc Việt",
+        "osmType": "way",
+        "osmId": 876528926,
+        "amenity": "college"
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+.git
+.env*
+node_modules
+dist
+dist-server-v2
+packages/contracts/dist
+public/uploads
+backups
+.runtime
+*.log

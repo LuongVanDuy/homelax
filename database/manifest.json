@@ -1,0 +1,16 @@
+{
+  "exportedAt": "2026-10-27T15:44:21.386Z",
+  "tables": {
+    "roles": 9,
+    "room_type_catalog": 16,
+    "amenities": 116,
+    "schools": 118,
+    "buildings": 137,
+    "rooms": 253,
+    "room_units": 291,
+    "building_amenities": 1565,
+    "room_type_amenities": 4122,
+    "schema_migrations": 48
+  },
+  "privacy": "Inventory only. Personal, financial, authentication, audit and free-text data omitted. Building/unit IDs and codes replaced; addresses reduced to ward/district/city; coordinates snapped to 200m cells; photos replaced by bundled illustrative image."
+}

@@ -1,0 +1,245 @@
+@layer theme, components, utilities;
+@import "tailwindcss/theme.css" layer(theme) prefix(tw);
+@import "tailwindcss/utilities.css" layer(utilities) prefix(tw);
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+/* Legacy fields only; MUI owns the border, spacing and focus of its inputs. */
+input:not(.MuiInputBase-input, .MuiSelect-nativeInput),
+select:not(.MuiInputBase-input, .MuiNativeSelect-select),
+textarea:not(.MuiInputBase-input) {
+  font-family: inherit;
+  outline: none;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+  background-color: #fff;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+input:not(.MuiInputBase-input, .MuiSelect-nativeInput):focus,
+select:not(.MuiInputBase-input, .MuiNativeSelect-select):focus,
+textarea:not(.MuiInputBase-input):focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.15);
+}
+
+/* Typography & Utilites */
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 clamp(14px, 4vw, 24px);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: var(--radius-full);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--primary-contrast);
+  box-shadow: var(--shadow-glow);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1.5px solid var(--primary);
+  color: var(--primary);
+}
+
+.btn-outline:hover {
+  background-color: var(--primary-light);
+}
+
+.btn-secondary {
+  background-color: var(--bg-subtle);
+  color: var(--text-main);
+}
+
+.btn-secondary:hover {
+  background-color: #e2e8f0;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge-primary {
+  background-color: var(--primary);
+  color: var(--primary-contrast);
+}
+
+.badge-partner,
+.badge-secondary {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.25);
+  font-weight: 700;
+}
+
+.badge-success {
+  background-color: var(--success);
+  color: #fff;
+}
+
+.badge-warning {
+  background-color: var(--warning);
+  color: #fff;
+}
+
+.badge-danger {
+  background-color: var(--danger);
+  color: #fff;
+  border: 1px solid var(--danger);
+  font-weight: 700;
+}
+
+.badge-tiny {
+  background-color: var(--primary);
+  color: var(--primary-contrast);
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+/* Card design */
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  border: 1px solid #f1f5f9;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Fix Leaflet map z-index stacking context so map controls/markers do not overlap header */
+.leaflet-container {
+  z-index: 1 !important;
+}
+
+/* Responsive Helper Classes */
+.responsive-grid-search {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 32px;
+}
+
+.responsive-grid-room-detail {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 32px;
+}
+
+.responsive-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.responsive-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* COMPREHENSIVE RESPONSIVE MEDIA QUERIES */
+@media (max-width: 1024px) {
+  .responsive-grid-search {
+    grid-template-columns: 1fr;
+  }
+
+  .responsive-grid-room-detail {
+    grid-template-columns: 1fr;
+  }
+
+  .responsive-grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .responsive-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .responsive-grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  h1:not(.home-hero-title):not(.about-hero-title) {
+    font-size: 1.8rem !important;
+  }
+}
+
+/* Global notifications: retain a visible keyboard focus indicator. */
+[data-sonner-toaster] button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}

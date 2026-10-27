@@ -1,0 +1,15 @@
+.env
+.env.*
+!.env.example
+node_modules/
+dist/
+dist-server-v2/
+packages/contracts/dist/
+public/uploads/
+backups/
+.runtime/
+*.log
+*.dump
+*.tar.gz
+*.pem
+*.key
