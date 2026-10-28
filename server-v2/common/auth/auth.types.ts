@@ -4,6 +4,8 @@ export type AppIdentity = {
   email: string;
   phone?: string;
   roleCode: string;
+  /** Primary role first, then extra roles merged into this identity's authority. */
+  roleCodes: string[];
   roleName: string;
   status: string;
   avatar?: string;

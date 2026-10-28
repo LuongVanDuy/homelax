@@ -5,7 +5,7 @@ import { getValidImageUrl } from '../../utils/roomHierarchy';
 export type SalesImageRoom = Pick<PublicRoomType, 'id' | 'buildingCode' | 'buildingName' | 'type' | 'address' | 'coverImage' | 'images' | 'vacantCount' | 'listingState'> & { price: number | null };
 
 export function collectionPages<T>(items: T[], pageSize: number): T[][] {
-  if (![6, 8, 12].includes(pageSize)) throw new Error('Số phòng mỗi ảnh không hợp lệ.');
+  if (![1, 6, 8, 12].includes(pageSize)) throw new Error('Số phòng mỗi ảnh không hợp lệ.');
   return Array.from({ length: Math.ceil(items.length / pageSize) }, (_, index) => items.slice(index * pageSize, (index + 1) * pageSize));
 }
 
@@ -36,7 +36,7 @@ function text(ctx: CanvasRenderingContext2D, value: string, x: number, y: number
 
 /** Browser Canvas only; source data stays within Homelax and no images are sent to third parties. */
 export async function renderSalesCollection(rooms: SalesImageRoom[], columns: number, contact: string, offset = 0) {
-  if (![2, 3, 4].includes(columns) || !rooms.length || rooms.length > 12 || rooms.some(room => !canIncludeSalesRoom(room))) throw new Error('Danh sách phòng không còn phù hợp.');
+  if (![1, 2, 3, 4].includes(columns) || !rooms.length || rooms.length > 12 || rooms.some(room => !canIncludeSalesRoom(room))) throw new Error('Danh sách phòng không còn phù hợp.');
   const photos = await Promise.all(rooms.map(async room => {
     const urls = [...new Set([room.coverImage, ...room.images].map(url => getValidImageUrl(url)).filter(Boolean))].slice(0, 4);
     return Promise.all(urls.map(url => loadImage(`/api/v2/images/transform?url=${encodeURIComponent(url)}&w=800&q=88&fmt=jpeg`)));

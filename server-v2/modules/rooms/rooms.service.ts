@@ -10,7 +10,7 @@ import type { RoomListQuery, PublicRoomSearchQuery } from '@tinyhouse/contracts'
 import { PostgresService } from '../../database/postgres.service.js';
 import {
   canAccessBuilding,
-  isPrivilegedBuildingRole,
+  isPrivilegedBuildingUser,
   mapBuildingRow,
   mapRoomRow,
   mapRoomUnitRow,
@@ -110,7 +110,7 @@ export class RoomsService {
 
   private roomOwnerAccess(room: Record<string, any>, user: any) {
     if (!user) return false;
-    if (isPrivilegedBuildingRole(user.roleCode)) return true;
+    if (isPrivilegedBuildingUser(user)) return true;
     const uid = String(user.id || '').trim().toLowerCase();
     return (
       String(room.ownerId || room.owner_id || '').trim().toLowerCase() === uid ||
@@ -136,7 +136,7 @@ export class RoomsService {
   async list(user: any, query: RoomListQuery) {
     const isCmsScope = this.buildings.assertCmsReadAccess(user, query.scope);
     const requireAccess = Boolean(
-      isCmsScope && user && !isPrivilegedBuildingRole(user.roleCode),
+      isCmsScope && user && !isPrivilegedBuildingUser(user),
     );
     const search = query.search.trim();
     const pattern = escapedLike(search);
@@ -226,7 +226,7 @@ export class RoomsService {
   async stats(user: any) {
     this.buildings.assertCmsReadAccess(user, 'cms');
     const requireAccess = Boolean(
-      user && !isPrivilegedBuildingRole(user.roleCode),
+      user && !isPrivilegedBuildingUser(user),
     );
     const result = await this.db.query<{
       active_types: number;

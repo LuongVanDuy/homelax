@@ -38,7 +38,10 @@ export function SalesImageCollection({ phone, name, ready, searchParams }: {
       const images: string[] = [];
       for (const [index, items] of collectionPages(rooms, pageSize).entries()) {
         if (latest.current !== key) return;
-        images.push((await renderSalesCollection(items, columns, [name, phone].filter(Boolean).join(' · '), index * pageSize)).toDataURL('image/png'));
+        const canvas = await renderSalesCollection(items, pageSize === 1 ? 1 : columns, [name, phone].filter(Boolean).join(' · '), index * pageSize);
+        images.push(canvas.toDataURL('image/png'));
+        // Safari caps total canvas memory; release each canvas so repeated exports keep working.
+        canvas.width = 0; canvas.height = 0;
       }
       if (latest.current === key) setOutput({ key, images });
     } catch (err) { if (latest.current === key) setError(err instanceof Error ? err.message : 'Không thể tạo ảnh.'); }
@@ -106,8 +109,8 @@ export function SalesImageCollection({ phone, name, ready, searchParams }: {
         {selected.map(room => <Button key={room.id} size="small" variant="outlined" sx={{ maxWidth: '100%', textAlign: 'left', overflowWrap: 'anywhere' }} aria-label={`Bỏ chọn ${room.buildingCode} ${room.type}`} onClick={() => toggle(room)}>{room.buildingCode} · {room.type} ×</Button>)}
       </Stack>}
       <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'minmax(0, 1fr) minmax(0, 1fr)', sm: 'minmax(120px, 1fr) minmax(140px, 1fr) auto' }, gap: 1.5, alignItems: 'center' }}>
-        <TextField select fullWidth label="Bố cục" value={columns} onChange={event => setColumns(Number(event.target.value))} sx={{ minWidth: 0 }}>{[2, 3, 4].map(n => <MenuItem key={n} value={n}>{n} cột</MenuItem>)}</TextField>
-        <TextField select fullWidth label="Mỗi ảnh" value={pageSize} onChange={event => setPageSize(Number(event.target.value))} sx={{ minWidth: 0 }}>{[6, 8, 12].map(n => <MenuItem key={n} value={n}>{n} phòng</MenuItem>)}</TextField>
+        <TextField select fullWidth label="Bố cục" value={pageSize === 1 ? 1 : columns} disabled={pageSize === 1} onChange={event => setColumns(Number(event.target.value))} sx={{ minWidth: 0 }}>{(pageSize === 1 ? [1] : [2, 3, 4]).map(n => <MenuItem key={n} value={n}>{n} cột</MenuItem>)}</TextField>
+        <TextField select fullWidth label="Mỗi ảnh" value={pageSize} onChange={event => setPageSize(Number(event.target.value))} sx={{ minWidth: 0 }}>{[1, 6, 8, 12].map(n => <MenuItem key={n} value={n}>{n} phòng</MenuItem>)}</TextField>
         <Button variant="contained" startIcon={<ImagePlus size={18} />} sx={{ gridColumn: { xs: '1 / -1', sm: 'auto' }, whiteSpace: 'nowrap', minHeight: 44, minWidth: 136, px: 2.5 }} disabled={!ready || !phone || !selected.length || busy} onClick={() => void generate()}>{busy ? 'Đang tạo…' : 'Tạo ảnh'}</Button>
       </Box>
     </Paper>

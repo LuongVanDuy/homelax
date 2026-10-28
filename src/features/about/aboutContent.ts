@@ -1,7 +1,7 @@
 /** F055–F059/F061: source brief. F060/F062: wording approved by the user on 2026-09-29. */
 export const aboutContent = {
   name: 'HOMELAX',
-  headline: 'Đơn vị quản lý vận hành phòng trọ/ccmn tại Hà Nội',
+  headline: ['Đơn vị quản lý vận hành', 'phòng trọ/ccmn tại Hà Nội'],
   introduction: 'Homelax được thành lập với sứ mệnh chuẩn hóa trải nghiệm thuê nhà tại Việt Nam - Minh bạch, Chất lượng và Tận tâm. Để mỗi người có thể an tâm tập trung vào cuộc sống của mình.',
   storyTitle: 'Bắt đầu từ niềm tin rằng thuê nhà phải đơn giản hơn.',
   story: [

@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { publicIntakeFormSchema, type PublicIntakeValues } from './publicIntake';
 
 export const consultationNeeds = {
-  rent: 'Thuê phòng', fitout: 'Lắp phòng', management: 'Quản lý vận hành',
+  rent: 'Thuê phòng', fitout: 'Lấp phòng', management: 'Quản lý vận hành',
 } as const;
 
 export const intakeFormFieldsSchema = publicIntakeFormSchema.extend({

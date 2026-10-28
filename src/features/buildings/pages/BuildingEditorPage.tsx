@@ -18,8 +18,7 @@ import { HanoiWardSelect } from '../../locations/components/HanoiWardSelect';
 import { HANOI_CITY } from '../../locations/hanoiWards';
 
 const formSchema = z.object({
-  code: z.string().trim().max(80),
-  name: z.string().trim().min(1, 'Vui lòng nhập tên tòa nhà.').max(200),
+  code: z.string().trim().min(1, 'Vui lòng nhập mã tòa.').max(80),
   ownerType: z.enum(['tiny', 'partner']),
   address: z.string().trim().min(1, 'Vui lòng nhập địa chỉ tòa nhà.').max(500),
   ward: z.string().trim().max(160),
@@ -31,7 +30,6 @@ const formSchema = z.object({
     (value) => !value || z.string().email().safeParse(value).success,
     'Email không hợp lệ.',
   ),
-  hostAddress: z.string().trim().min(1, 'Vui lòng nhập địa chỉ chủ nhà.').max(500),
   images: z.array(z.string()).max(25),
   media360: media360ListSchema,
   amenityIds: z.array(z.string()),
@@ -91,7 +89,6 @@ function BuildingEditorForm({ building }: { building?: BuildingRecord }) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       code: building?.code || '',
-      name: building?.name || '',
       ownerType: building?.ownerType || 'tiny',
       address: building?.address || '',
       ward: building?.ward || '',
@@ -100,7 +97,6 @@ function BuildingEditorForm({ building }: { building?: BuildingRecord }) {
       hostName: building?.hostName || '',
       hostPhone: building?.hostPhone || '',
       hostEmail: building?.hostEmail || '',
-      hostAddress: building?.hostAddress || '',
       images: building?.images || [],
       media360: building?.media360 || [],
       amenityIds: building?.amenityIds || [],
@@ -133,8 +129,8 @@ function BuildingEditorForm({ building }: { building?: BuildingRecord }) {
     try {
       const payload = buildingWriteSchema.parse({
         ...(building ? { id: building.id } : {}),
-        code: form.code || undefined,
-        name: form.name,
+        code: form.code,
+        name: form.code,
         ownerType: form.ownerType,
         isTiny: form.ownerType === 'tiny',
         address: form.address,
@@ -147,7 +143,6 @@ function BuildingEditorForm({ building }: { building?: BuildingRecord }) {
         hostName: form.hostName,
         hostPhone: form.hostPhone,
         hostEmail: form.hostEmail,
-        hostAddress: form.hostAddress,
         images: form.images,
         media360: form.media360,
         coverImage: form.images[0] || '',
@@ -165,7 +160,7 @@ function BuildingEditorForm({ building }: { building?: BuildingRecord }) {
         <Stack direction="row" spacing={1.5} sx={{ alignItems: 'center' }}>
           <Button color="inherit" startIcon={<ArrowLeft size={18} />} onClick={cancel}>Quay lại</Button>
           <Divider orientation="vertical" flexItem sx={{ display: { xs: 'none', md: 'block' } }} />
-          <CmsPageHeader title={editing ? 'Chỉnh sửa tòa nhà' : 'Thêm tòa nhà'} description={editing ? `${building?.name} · ${building?.code}` : 'Nhập đầy đủ thông tin tòa nhà, vị trí, chủ nhà và hình ảnh.'} />
+          <CmsPageHeader title={editing ? 'Chỉnh sửa tòa nhà' : 'Thêm tòa nhà'} description={editing ? `Tòa ${building?.code}` :'Nhập đầy đủ thông tin tòa nhà, vị trí, chủ nhà và hình ảnh.'} />
         </Stack>
         <Stack direction="row" spacing={1}>
           <Button color="inherit" onClick={cancel} disabled={busy}>Hủy</Button>
@@ -178,8 +173,9 @@ function BuildingEditorForm({ building }: { building?: BuildingRecord }) {
       <Box sx={{ display: 'grid', gap: 2, gridTemplateColumns: { xs: '1fr', xl: '5fr 7fr' }, alignItems: 'stretch' }}>
         <SectionCard icon={<Building2 size={18} />} title="Thông tin tòa nhà" description="Thông tin định danh và loại hình.">
           <Box sx={{ display: 'grid', gap: 1.5, gridTemplateColumns: { xs: '1fr', sm: 'minmax(0, 2fr) minmax(140px, 1fr)' } }}>
-            <TextField {...bind('name')} label="Tên tòa nhà" required autoFocus disabled={busy} />
-            <TextField {...bind('code')} label="Mã tòa" placeholder="Hệ thống tự sinh" disabled={busy || editing} />
+            <TextField {...bind('code')} label="Mã tòa (tên tòa nhà)" placeholder="VD: HL01" required autoFocus disabled={busy}
+              helperText={errors.code?.message || (editing ? 'Đổi mã sẽ cập nhật theo cho phòng và lịch xem; link cũ của tòa sẽ không còn dùng được.' : 'Mã tòa cũng là tên hiển thị của tòa nhà.')}
+              sx={{ gridColumn: { xs: '1', sm: '1 / -1' } }} />
             <Controller name="ownerType" control={control} render={({ field }) =>
               <TextField {...field} select fullWidth label="Loại hình" disabled={busy} sx={{ gridColumn: { xs: '1', sm: '1 / -1' } }}>
                 <MenuItem value="tiny">Tòa Homelax</MenuItem>
@@ -194,8 +190,6 @@ function BuildingEditorForm({ building }: { building?: BuildingRecord }) {
             <TextField {...bind('hostName')} label="Họ tên" required disabled={busy} />
             <TextField {...bind('hostPhone')} label="Số điện thoại" required disabled={busy} />
             <TextField {...bind('hostEmail')} label="Email" type="email" disabled={busy} sx={{ gridColumn: { xs: '1', sm: '1 / -1', lg: 'auto' } }} />
-            <TextField {...bind('hostAddress')} label="Địa chỉ chủ nhà / người quản lý" required disabled={busy}
-              sx={{ gridColumn: { xs: '1', sm: '1 / -1', lg: '1 / -1' } }} />
           </Box>
         </SectionCard>
       </Box>

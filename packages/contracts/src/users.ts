@@ -25,6 +25,8 @@ export const userSummarySchema = z.object({
   phone: z.string(),
   roleCode: z.string(),
   roleName: z.string(),
+  // Additional configurable CMS roles merged into the account's permissions.
+  extraRoleCodes: z.array(z.string()).default([]),
   // Read historical/imported values without rejecting the entire user list.
   // All new writes use userStatusSchema below.
   status: z.string(),
@@ -34,7 +36,9 @@ export const userSummarySchema = z.object({
   updatedAt: z.string(),
 });
 
-export const userPageSchema = pagedResponseSchema(userSummarySchema);
+export const extraRoleCodesSchema = z.array(z.string().trim().min(1).max(64)).max(10);
+
+export const userPageSchema =pagedResponseSchema(userSummarySchema);
 export const userStatsSchema = z.object({
   total: z.number().int().nonnegative(),
   pending: z.number().int().nonnegative(),
@@ -51,6 +55,7 @@ export const userProfileWriteSchema = z
     phone: profilePhoneSchema.optional(),
     roleCode: z.string().trim().min(1).optional(),
     roleName: z.string().trim().optional(),
+    extraRoleCodes: extraRoleCodesSchema.optional(),
     status: userStatusSchema.optional(),
     avatar: z.string().optional(),
   })
@@ -64,6 +69,7 @@ export const provisionUserRequestSchema = z
     password: z.string().min(8),
     roleCode: z.string().trim().min(1),
     roleName: z.string().trim().optional(),
+    extraRoleCodes: extraRoleCodesSchema.optional(),
     status: userStatusSchema.optional(),
     avatar: z.string().optional(),
   })

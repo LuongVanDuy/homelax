@@ -1,4 +1,4 @@
-import { normalizeAccountPhone } from '@tinyhouse/contracts';
+import { isCombinableRoleCode, normalizeAccountPhone } from '@tinyhouse/contracts';
 import { rethrowAccountContactError } from '../../common/auth/account-contact-error.js';
 import {
   BadRequestException,
@@ -28,6 +28,7 @@ type UserRow = QueryResultRow & {
   phone: string | null;
   role_code: string | null;
   role_name: string | null;
+  extra_role_codes: unknown;
   status: string;
   avatar: string | null;
   auth_provider: string | null;
@@ -36,9 +37,13 @@ type UserRow = QueryResultRow & {
 };
 
 const USER_COLUMNS = `
-  id, name, email, phone, role_code, role_name,
+  id, name, email, phone, role_code, role_name, extra_role_codes,
   status, avatar, auth_provider, created_at, updated_at
 `;
+
+function extraRoleCodes(row: UserRow) {
+  return Array.isArray(row.extra_role_codes) ? row.extra_role_codes.map(String) : [];
+}
 const ADMIN_ROLES = new Set(['admin', 'superadmin']);
 const CTV_ROLE_CODE = 'ctv_sale';
 // Match AuthIdentityService while existing imported accounts are still supported.
@@ -61,6 +66,7 @@ function mapUser(row: UserRow): UserSummary {
     phone: row.phone || '',
     roleCode: row.role_code || 'unassigned',
     roleName: row.role_name || 'Chưa phân quyền',
+    extraRoleCodes: extraRoleCodes(row),
     status: canonicalStatus(row.status),
     avatar: row.avatar || '',
     authProvider: row.auth_provider || 'local',
@@ -106,7 +112,7 @@ export class UsersService {
     const order = query.order === 'asc' ? 'ASC' : 'DESC';
     const where = `
       WHERE ($1 = '' OR id ILIKE $2 OR name ILIKE $2 OR email ILIKE $2 OR COALESCE(phone, '') ILIKE $2)
-        AND ($3 = '' OR role_code = $3)
+        AND ($3 = '' OR role_code = $3 OR extra_role_codes ? $3)
         AND ($4::text[] = '{}'::text[] OR lower(trim(status)) = ANY($4::text[]))
     `;
     const params = [search, pattern, query.roleCode, statusAliases.map((value) => value.toLowerCase())];
@@ -202,6 +208,19 @@ export class UsersService {
     return result.rows[0];
   }
 
+  private async validExtraRoles(client: PoolClient, primary: string, codes: string[]) {
+    const unique = [...new Set(codes.map((code) => code.trim()).filter((code) => code && code !== primary))];
+    if (!unique.length) return [];
+    const invalid = (message: string): never => {
+      throw new BadRequestException({ success: false, error: message, details: [{ path: 'extraRoleCodes', message }] });
+    };
+    if (!isCombinableRoleCode(primary)) invalid('Vai trò chính này không thể gộp thêm vai trò khác.');
+    if (unique.some((code) => !isCombinableRoleCode(code))) invalid('Không thể gộp vai trò hệ thống, CTV, kế toán hoa hồng hoặc khách hàng.');
+    const result = await client.query<{ code: string }>('SELECT code FROM roles WHERE code = ANY($1::text[]) FOR KEY SHARE', [unique]);
+    if (result.rowCount !== unique.length) invalid('Có vai trò bổ sung không tồn tại.');
+    return unique;
+  }
+
   private async assertEmailAvailable(client: PoolClient, email: string, id: string | null = null) {
     const result = await client.query(
       'SELECT id FROM users WHERE lower(email) = $1 AND ($2::text IS NULL OR id <> $2) LIMIT 1',
@@ -216,8 +235,9 @@ export class UsersService {
     current: UserRow,
     roleCode: string | null,
     status: string,
+    extrasChanged = false,
   ) {
-    const changed = roleCode !== current.role_code || canonicalStatus(status) !== canonicalStatus(current.status);
+    const changed = extrasChanged || roleCode !== current.role_code || canonicalStatus(status) !== canonicalStatus(current.status);
     if (!changed) return false;
 
     if (actor.id === current.id) {
@@ -302,13 +322,17 @@ export class UsersService {
       await this.assertEmailAvailable(client, email, current.id);
       const role = await this.existingRole(client, data.roleCode ?? current.role_code ?? 'unassigned');
       const status = data.status ?? current.status;
-      const accessChanged = await this.assertAccessChange(client, actor, current, role.code, status);
+      const currentExtras = extraRoleCodes(current);
+      const extras = await this.validExtraRoles(client, role.code,
+        data.extraRoleCodes ?? (isCombinableRoleCode(role.code) ? currentExtras : []));
+      const extrasChanged = [...extras].sort().join() !== [...currentExtras].sort().join();
+      const accessChanged = await this.assertAccessChange(client, actor, current, role.code, status, extrasChanged);
       const result = await client.query<UserRow>(
         `UPDATE users SET name = $2, email = $3, phone = $4,
-          role_code = $5, role_name = $6, status = $7, avatar = $8, updated_at = NOW()
+          role_code = $5, role_name = $6, status = $7, avatar = $8, extra_role_codes = $9::jsonb, updated_at = NOW()
          WHERE id = $1 RETURNING ${USER_COLUMNS}`,
         [current.id, data.name ?? current.name, email, data.phone === undefined ? current.phone ?? '' : normalizeAccountPhone(data.phone),
-          role.code, role.name, status, data.avatar ?? current.avatar ?? ''],
+          role.code, role.name, status, data.avatar ?? current.avatar ?? '', JSON.stringify(extras)],
       );
       const profileColumns = { gender: 'gender', birthDate: 'birth_date', address: 'address' } as const;
       const profileSets: string[] = [];
@@ -346,13 +370,14 @@ export class UsersService {
       const email = data.email.trim().toLowerCase();
       await this.assertEmailAvailable(client, email);
       const role = await this.existingRole(client, data.roleCode);
+      const extras = await this.validExtraRoles(client, role.code, data.extraRoleCodes ?? []);
       const result = await client.query<UserRow>(
         `INSERT INTO users (
           id, name, email, phone, password_hash,
-          role_code, role_name, status, avatar, auth_provider
-         ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,'local') RETURNING ${USER_COLUMNS}`,
+          role_code, role_name, status, avatar, auth_provider, extra_role_codes
+         ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,'local',$10::jsonb) RETURNING ${USER_COLUMNS}`,
         [`usr_${crypto.randomUUID()}`, data.name, email, normalizeAccountPhone(data.phone), passwordHash,
-          role.code, role.name, data.status ?? 'Hoạt động', data.avatar ?? ''],
+          role.code, role.name, data.status ?? 'Hoạt động', data.avatar ?? '', JSON.stringify(extras)],
       );
       await this.syncCollaboratorProfile(client, result.rows[0]);
       await this.audit(client, actor, result.rows[0].id, 'CREATE', 'Tạo tài khoản người dùng.');

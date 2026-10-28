@@ -1,30 +1,32 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Stack, Typography } from '@mui/material';
-import { ArrowRight, Building2, ChevronDown, Image, Link2, MessageCircle, Wallet } from 'lucide-react';
+import { ArrowRight, BarChart3, Building2, ChevronDown, Clock3, HandCoins, Headset, Link2 } from 'lucide-react';
 import { PublicContainer, PublicSurface } from '../../../components/public';
 import { PublicLink } from '../../../app/router/PublicLink';
 import { routePaths } from '../../../app/router/routePaths';
 import { designTokens } from '../../../app/theme/tokens';
 import { PublicIntakeForm } from '../../intake/PublicIntakeForm';
-import { partnerBenefits, partnerFaqs, partnerSteps } from '../partnerContent';
+import { partnerAudiences, partnerBenefits, partnerCommissionStages, partnerFaqs, partnerHero, partnerSteps } from '../partnerContent';
 import type { AppIdentity } from '../../auth/identityStore';
 import { CtvToolsSection } from '../../affiliate/components/CtvToolsSection';
 
 const heading = { fontSize: { xs: '1.5rem', md: '1.875rem' }, fontWeight: 800, lineHeight: 1.3, letterSpacing: '-.025em' };
 const frame = { border: '1px solid', borderColor: 'divider', borderRadius: '12px', overflow: 'hidden' };
-const icons = [Building2, Link2, Wallet, Image];
+const icons = [Building2, Link2, Clock3, Headset, BarChart3, HandCoins];
+const cardGrid = { display: 'grid', gridTemplateColumns: { xs: 'minmax(0, 1fr)', sm: 'repeat(2, minmax(0, 1fr))' }, gap: 2.5 };
 
 export default function PartnerPage({ currentUser }: { currentUser: AppIdentity }) {
   return <PublicSurface><PublicContainer>
     <Stack sx={{ py: { xs: 3, md: 5 }, pb: { xs: 5, md: 7 }, gap: { xs: 5, md: 7 } }}>
       <Box component="section" aria-labelledby="partner-title" sx={{ display: 'grid', gridTemplateColumns: { xs: 'minmax(0, 1fr)', md: 'repeat(2, minmax(0, 1fr))' }, gap: { xs: 3, md: 5 }, alignItems: 'center' }}>
         <Stack sx={{ gap: 2.5, alignItems: 'flex-start' }}>
-          <Typography sx={{ color: 'primary.main', fontWeight: 700, fontSize: '.8125rem', textTransform: 'uppercase', letterSpacing: '.06em' }}>Cộng tác viên Homelax</Typography>
-          <Typography id="partner-title" component="h1" sx={{ fontSize: { xs: '1.8rem', sm: '2.25rem', lg: '2.75rem' }, fontWeight: 800, lineHeight: 1.2, letterSpacing: '-.035em' }}>Kết nối một nơi ở.<br /><Box component="span" sx={{ color: 'primary.main' }}>Mở thêm cơ hội thu nhập.</Box></Typography>
-          <Typography color="text.secondary" sx={{ lineHeight: 1.75 }}>Đồng hành cùng Homelax, giới thiệu không gian sống phù hợp đến người đang tìm thuê. Có nguồn phòng để chia sẻ, công cụ hỗ trợ và thông tin hoa hồng để bạn theo dõi.</Typography>
+          <Typography sx={{ color: 'primary.main', fontWeight: 700, fontSize: '.8125rem', textTransform: 'uppercase', letterSpacing: '.06em' }}>{partnerHero.eyebrow}</Typography>
+          <Typography id="partner-title" component="h1" sx={{ fontSize: { xs: '1.8rem', sm: '2.25rem', lg: '2.75rem' }, fontWeight: 800, lineHeight: 1.2, letterSpacing: '-.035em', textTransform: 'uppercase' }}>{partnerHero.title}<br /><Box component="span" sx={{ color: 'primary.main' }}>{partnerHero.highlight}</Box></Typography>
+          <Typography color="text.secondary" sx={{ lineHeight: 1.75 }}>{partnerHero.description}</Typography>
           <Stack direction={{ xs: 'column', sm: 'row' }} sx={{ gap: 1.5, width: { xs: '100%', sm: 'auto' } }}>
-            <Button component={PublicLink} to={`${routePaths.partner}#partner-registration`} variant="contained" endIcon={<ArrowRight size={18} />}>Đăng ký làm CTV ngay</Button>
-            <Button component={PublicLink} to={`${routePaths.partner}#partner-consultation`} variant="outlined" startIcon={<MessageCircle size={18} />}>Tư vấn miễn phí</Button>
+            <Button component={PublicLink} to={`${routePaths.partner}#partner-registration`} variant="contained" endIcon={<ArrowRight size={18} />}>Trở thành CTV ngay</Button>
+            <Button component={PublicLink} to={`${routePaths.partner}#partner-steps`} variant="outlined">Cách hoạt động</Button>
           </Stack>
+          <Typography variant="body2" color="text.secondary">{partnerHero.note}</Typography>
         </Stack>
         <Box sx={{ ...frame, position: 'relative', minHeight: { xs: 260, sm: 340, md: 400 }, alignSelf: 'stretch' }}>
           <Box component="img" src="/images/partner-hero-bedroom.png" alt="Không gian phòng ở minh họa của Homelax" fetchPriority="high" sx={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -34,9 +36,8 @@ export default function PartnerPage({ currentUser }: { currentUser: AppIdentity 
       <CtvToolsSection currentUser={currentUser} />
 
       <Box component="section" aria-labelledby="partner-benefits">
-        <Typography id="partner-benefits" component="h2" sx={{ ...heading, mb: 1 }}>Cùng bạn trên hành trình giới thiệu phòng</Typography>
-        <Typography color="text.secondary" sx={{ mb: 3 }}>Các công cụ dành cho CTV sau khi được duyệt và cấp quyền.</Typography>
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'minmax(0, 1fr)', sm: 'repeat(2, minmax(0, 1fr))', lg: 'repeat(4, minmax(0, 1fr))' }, gap: 2.5 }}>
+        <Typography id="partner-benefits" component="h2" sx={{ ...heading, mb: 3 }}>Quyền lợi</Typography>
+        <Box sx={{ ...cardGrid, gridTemplateColumns: { ...cardGrid.gridTemplateColumns, lg: 'repeat(3, minmax(0, 1fr))' } }}>
           {partnerBenefits.map((item, index) => {
             const Icon = icons[index] ?? Building2;
             return <Box key={item.title} sx={{ ...frame, p: 2.5, bgcolor: 'background.paper' }}>
@@ -48,19 +49,34 @@ export default function PartnerPage({ currentUser }: { currentUser: AppIdentity 
         </Box>
       </Box>
 
-      <Box component="section" aria-labelledby="partner-policy" sx={{ ...frame, p: { xs: 3, md: 4 }, bgcolor: designTokens.colors.brand[50] }}>
-        <Typography id="partner-policy" component="h2" sx={{ ...heading, mb: 2 }}>Rõ điều kiện, rõ cách ghi nhận hoa hồng</Typography>
-        <Typography sx={{ lineHeight: 1.75, mb: 1.5 }}>Hoa hồng được tính theo chính sách áp dụng cho vị trí của bạn và khoản hoa hồng từ chủ nhà của từng giao dịch. Khách ký hợp đồng và đóng đủ cọc là điều kiện ghi nhận.</Typography>
-        <Typography color="text.secondary" sx={{ lineHeight: 1.75 }}>Thanh toán một lần theo đợt ngày 1 và 15 sau khi đủ phê duyệt của quản trị viên và kế toán. Hãy trao đổi với Homelax để hiểu chính sách trước khi bắt đầu hợp tác.</Typography>
+      <Box component="section" aria-labelledby="partner-audiences">
+        <Typography id="partner-audiences" component="h2" sx={{ ...heading, mb: 3 }}>Ai cũng có thể bắt đầu cùng Homelax:</Typography>
+        <Box sx={{ ...cardGrid, gridTemplateColumns: { ...cardGrid.gridTemplateColumns, lg: 'repeat(4, minmax(0, 1fr))' } }}>
+          {partnerAudiences.map((item, index) => <Box key={item.title} sx={{ ...frame, p: 2.5, bgcolor: 'background.paper' }}>
+            <Typography aria-hidden="true" sx={{ color: 'primary.main', fontWeight: 800, mb: 1 }}>0{index + 1}</Typography>
+            <Typography component="h3" sx={{ fontSize: '1.0625rem', fontWeight: 700, mb: 1 }}>{item.title}</Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.75 }}>{item.description}</Typography>
+          </Box>)}
+        </Box>
       </Box>
 
-      <Box component="section" aria-labelledby="partner-steps">
-        <Typography id="partner-steps" component="h2" sx={{ ...heading, mb: 3 }}>Bắt đầu cùng Homelax</Typography>
-        <Box component="ol" sx={{ listStyle: 'none', p: 0, m: 0, display: 'grid', gridTemplateColumns: { xs: 'minmax(0, 1fr)', md: 'repeat(3, minmax(0, 1fr))' }, gap: 3 }}>
+      <Box component="section" id="partner-steps" aria-labelledby="partner-steps-title" sx={{ scrollMarginTop: 100 }}>
+        <Typography id="partner-steps-title" component="h2" sx={{ ...heading, mb: 3 }}>5 bước để bắt đầu:</Typography>
+        <Box component="ol" sx={{ listStyle: 'none', p: 0, m: 0, display: 'grid', gridTemplateColumns: { xs: 'minmax(0, 1fr)', sm: 'repeat(2, minmax(0, 1fr))', md: 'repeat(5, minmax(0, 1fr))' }, gap: 3 }}>
           {partnerSteps.map((step, index) => <Box component="li" key={step.title}>
             <Typography aria-hidden="true" sx={{ color: 'primary.main', fontSize: '2rem', fontWeight: 800, mb: 1 }}>0{index + 1}</Typography>
             <Typography component="h3" sx={{ fontSize: '1.125rem', fontWeight: 700, mb: 1 }}>{step.title}</Typography>
             <Typography color="text.secondary" sx={{ lineHeight: 1.75 }}>{step.description}</Typography>
+          </Box>)}
+        </Box>
+      </Box>
+
+      <Box component="section" aria-labelledby="partner-policy" sx={{ ...frame, p: { xs: 3, md: 4 }, bgcolor: designTokens.colors.brand[50] }}>
+        <Typography id="partner-policy" component="h2" sx={{ ...heading, mb: 3 }}>Giới thiệu thành công – Ghi nhận rõ ràng:</Typography>
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'minmax(0, 1fr)', md: 'repeat(3, minmax(0, 1fr))' }, gap: 2.5 }}>
+          {partnerCommissionStages.map(stage => <Box key={stage.title}>
+            <Typography component="h3" sx={{ fontSize: '1.125rem', fontWeight: 700, mb: 1 }}>{stage.title}</Typography>
+            <Typography color="text.secondary" sx={{ lineHeight: 1.75 }}>{stage.description}</Typography>
           </Box>)}
         </Box>
       </Box>
@@ -76,8 +92,8 @@ export default function PartnerPage({ currentUser }: { currentUser: AppIdentity 
       </Box>
 
       <Box component="section" aria-labelledby="partner-forms">
-        <Typography id="partner-forms" component="h2" sx={{ ...heading, mb: 1 }}>Chọn bước tiếp theo của bạn</Typography>
-        <Typography color="text.secondary" sx={{ mb: 3 }}>Sẵn sàng hợp tác hoặc cần tìm hiểu thêm? Chọn một form phù hợp bên dưới.</Typography>
+        <Typography id="partner-forms" component="h2" sx={{ ...heading, mb: 1 }}>Bắt đầu hợp tác cùng Homelax ngay hôm nay!</Typography>
+        <Typography color="text.secondary" sx={{ mb: 3 }}>Để lại thông tin để đội ngũ Homelax liên hệ hướng dẫn kích hoạt tài khoản.</Typography>
         <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'minmax(0, 1fr)', md: 'repeat(2, minmax(0, 1fr))' }, gap: 2.5, alignItems: 'start' }}>
           <Box id="partner-registration" sx={{ scrollMarginTop: 100, '& > section': { borderRadius: '12px' } }}>
             <PublicIntakeForm kind="collaborator_registration" />

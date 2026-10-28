@@ -1,5 +1,5 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, Stack, TextField } from '@mui/material';
-import { USER_STATUSES, type UserSummary, type UserStatus } from '@tinyhouse/contracts';
+import { Box, Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, Stack, TextField } from '@mui/material';
+import { USER_STATUSES, isCombinableRoleCode, type UserSummary, type UserStatus } from '@tinyhouse/contracts';
 import { Controller, useForm, z, zodResolver } from '../../../app/forms';
 import { toast } from '../../../lib/toast';
 import type { RoleSummary } from '../../roles/api/role.queries';
@@ -22,6 +22,7 @@ const fields = z.object({
   email: z.string().trim().min(1, 'Vui lòng nhập email.').email('Email chưa đúng định dạng.'),
   phone: z.string().trim().refine((value) => !value || /^[+\d][\d\s().-]{5,19}$/.test(value), 'Số điện thoại chưa đúng định dạng.'),
   roleCode: z.string().min(1, 'Vui lòng chọn vai trò.'),
+  extraRoleCodes: z.array(z.string()),
   status: z.string().refine((value) => USER_STATUSES.includes(value as UserStatus), 'Vui lòng chọn trạng thái.'),
   password: z.string(),
   confirmPassword: z.string(),
@@ -36,13 +37,18 @@ export function UserEditorDialog({ user, roles, currentUserId, initialRoleCode =
     if (!user && values.password.length < 8) context.addIssue({ code: 'custom', path: ['password'], message: 'Mật khẩu cần ít nhất 8 ký tự.' });
     if (!user && values.password !== values.confirmPassword) context.addIssue({ code: 'custom', path: ['confirmPassword'], message: 'Mật khẩu xác nhận chưa khớp.' });
   });
-  const { control, register, handleSubmit, setValue, setError, formState: { errors, isSubmitting } } = useForm<Values>({
+  const { control, register, handleSubmit, setValue, setError, watch, formState: { errors, isSubmitting } } = useForm<Values>({
     resolver: zodResolver(schema), mode: 'onTouched',
     defaultValues: {
       name: user?.name || '', email: user?.email || '', phone: user?.phone || '', roleCode: user?.roleCode || initialRoleCode,
+      extraRoleCodes: user?.extraRoleCodes || [],
       status: user ? canonicalUserStatus(user.status) : 'Hoạt động', password: '', confirmPassword: '',
     },
   });
+  const roleCode = watch('roleCode');
+  const combinable = isCombinableRoleCode(roleCode);
+  const extraRoleOptions = roles.filter((role) => role.code !== roleCode && isCombinableRoleCode(role.code));
+  const extraRoleCodesFor = (values: Values) => combinable ? values.extraRoleCodes.filter((code) => code !== values.roleCode) : [];
   const bind = (name: 'name' | 'email' | 'phone' | 'confirmPassword') => {
     const field = register(name);
     return { ...field, inputRef: field.ref, ref: undefined, error: Boolean(errors[name]), helperText: errors[name]?.message };
@@ -54,14 +60,14 @@ export function UserEditorDialog({ user, roles, currentUserId, initialRoleCode =
         try {
           const profile = { name: values.name, email: values.email, phone: values.phone };
           if (user) {
-            const result = await save.mutateAsync({ id: user.id, ...profile, ...(!isSelf ? { roleCode: values.roleCode, status: values.status as UserStatus } : {}) });
+            const result = await save.mutateAsync({ id: user.id, ...profile, ...(!isSelf ? { roleCode: values.roleCode, extraRoleCodes: extraRoleCodesFor(values), status: values.status as UserStatus } : {}) });
             if (result.identityRefreshFailed) {
               toast.warning('Đã lưu tài khoản. Hãy tải lại trang để cập nhật thông tin phiên đăng nhập.');
               onClose();
               return;
             }
           } else {
-            await provision.mutateAsync({ ...profile, roleCode: values.roleCode, status: values.status as UserStatus, password: values.password });
+            await provision.mutateAsync({ ...profile, roleCode: values.roleCode, extraRoleCodes: extraRoleCodesFor(values), status: values.status as UserStatus, password: values.password });
           }
           toast.success(user ? 'Đã cập nhật tài khoản.' : 'Đã tạo tài khoản.');
           onClose();
@@ -69,7 +75,7 @@ export function UserEditorDialog({ user, roles, currentUserId, initialRoleCode =
           const failure = error as { status?: number; payload?: { details?: { path: string; message: string }[] } };
           const fieldErrors = failure.payload?.details || [];
           for (const issue of fieldErrors) {
-            if (['name', 'email', 'phone', 'roleCode', 'status', 'password'].includes(issue.path)) {
+            if (['name', 'email', 'phone', 'roleCode', 'extraRoleCodes', 'status', 'password'].includes(issue.path)) {
               setError(issue.path as keyof Values, { message: issue.message }, { shouldFocus: true });
             }
           }
@@ -100,6 +106,24 @@ export function UserEditorDialog({ user, roles, currentUserId, initialRoleCode =
                 </TextField>
               )} />
             </Stack>
+            {!lockRole && <Controller name="extraRoleCodes" control={control} render={({ field }) => (
+              <TextField label="Gộp thêm vai trò (không bắt buộc)" select fullWidth
+                value={combinable ? field.value.filter((code) => code !== roleCode) : []}
+                onChange={(event) => field.onChange(typeof event.target.value === 'string' ? event.target.value.split(',') : event.target.value)}
+                disabled={isSubmitting || isSelf || !combinable || !extraRoleOptions.length}
+                error={Boolean(errors.extraRoleCodes)}
+                helperText={errors.extraRoleCodes?.message || (combinable
+                  ? 'Tài khoản có quyền của vai trò chính cộng thêm các vai trò được chọn, ví dụ BTV + Quản lý tòa nhà.'
+                  : 'Vai trò chính này không gộp được với vai trò khác.')}
+                slotProps={{ select: {
+                  multiple: true,
+                  renderValue: (value) => (value as string[]).map((code) => roles.find((role) => role.code === code)?.name || code).join(', '),
+                } }}>
+                {extraRoleOptions.map((role) => <MenuItem key={role.id} value={role.code}>
+                  <Checkbox size="small" checked={field.value.includes(role.code)} sx={{ py: 0, ml: -1 }} />{role.name}
+                </MenuItem>)}
+              </TextField>
+            )} />}
             {!user && <>
               <Controller name="password" control={control} render={({ field }) => (
                 <UserPasswordField field={field} disabled={isSubmitting} error={errors.password?.message} onGenerate={(password) => {

@@ -160,7 +160,8 @@ export const buildingWriteSchema = z
   .object({
     id: z.string().trim().min(1).optional(),
     code: z.string().trim().max(80).optional(),
-    name: z.string().trim().min(1, 'Vui lòng nhập tên tòa nhà.').max(200),
+    // The building code is its display name; name is kept for older clients.
+    name: z.string().trim().max(200).optional(),
     address: z.string().trim().min(1, 'Vui lòng nhập địa chỉ tòa nhà.').max(500),
     district: z.string().trim().max(160).optional(),
     ward: z.string().trim().max(160).optional(),
@@ -176,7 +177,7 @@ export const buildingWriteSchema = z
     hostName: z.string().trim().min(1, 'Vui lòng nhập tên chủ nhà/người quản lý.').max(160),
     hostPhone: z.string().trim().min(1, 'Vui lòng nhập số điện thoại chủ nhà/người quản lý.').max(50),
     hostEmail: z.union([z.string().trim().email('Email chủ nhà không hợp lệ.'), z.literal('')]).optional(),
-    hostAddress: z.string().trim().min(1, 'Vui lòng nhập địa chỉ chủ nhà.').max(500),
+    hostAddress: z.string().trim().max(500).optional(),
   })
   .strict()
   .superRefine((data, context) => {

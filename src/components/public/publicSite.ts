@@ -46,9 +46,9 @@ export const footerLinkGroups = [
 ] as const;
 
 export const publicSocialLinks = [
-  { id: 'facebook', label: 'Facebook', href: 'https://www.facebook.com/TinyHouses.vn/' },
-  { id: 'tiktok', label: 'TikTok', href: 'https://www.tiktok.com/@timphong.tinyhouses' },
-  { id: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/tinyhouses.vn/' },
-  { id: 'threads', label: 'Threads', href: 'https://www.threads.com/@tinyhouses.vn' },
+  { id: 'facebook', label: 'Facebook', href: 'https://www.facebook.com/Homelax.vn' },
+  { id: 'tiktok', label: 'TikTok', href: 'https://www.tiktok.com/@homelax.vn' },
+  { id: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/homelax.vn/' },
+  { id: 'threads', label: 'Threads', href: 'https://www.threads.com/@homelax.vn' },
   { id: 'zalo', label: 'Zalo', href: publicSite.zaloUrl },
 ] as const;

@@ -27,7 +27,7 @@ export default function AboutPage() {
             </Stack>
             <Box>
               <Typography id="about-title" component="h1" className="about-hero-title" sx={{ fontSize: { xs: '2.25rem', lg: '3rem' }, fontWeight: 800, letterSpacing: '-.04em', lineHeight: 1.15 }}>{content.name}</Typography>
-              <Typography sx={{ fontSize: { xs: '1.5rem', lg: '2rem' }, color: 'primary.main', fontWeight: 800, lineHeight: 1.35, mt: 1 }}>{content.headline}</Typography>
+              <Typography sx={{ fontSize: { xs: '1.5rem', lg: '2rem' }, color: 'primary.main', fontWeight: 800, lineHeight: 1.35, mt: 1 }}>{content.headline.map(line => <Box component="span" key={line} sx={{ display: 'block' }}>{line}</Box>)}</Typography>
             </Box>
             <Typography color="text.secondary" sx={body}>{content.introduction}</Typography>
             <Stack direction={{ xs: 'column', sm: 'row' }} sx={{ gap: 1.5, width: { xs: '100%', sm: 'auto' } }}>

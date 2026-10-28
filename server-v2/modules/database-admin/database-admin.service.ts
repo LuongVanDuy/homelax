@@ -63,6 +63,7 @@ const TABLES = {
       'password_hash',
       'role_code',
       'role_name',
+      'extra_role_codes',
       'status',
       'avatar',
       'gender',
@@ -72,6 +73,9 @@ const TABLES = {
       'email_verified_at',
       'created_at',
       'updated_at',
+    ],
+    jsonColumns: [
+      'extra_role_codes',
     ],
   },
   customers: {
@@ -579,7 +583,7 @@ function snapshotTables(snapshot: DatabaseSnapshot) {
 function legacyRoomTypeCatalogId(value: string) {
   const type = value.trim().toLocaleLowerCase('vi');
   if (type.includes('2n2k')) return 'RTC-2N2K';
-  if (type.includes('3n2k') || /(^|[^0-9])3n/.test(type)) return 'RTC-3N2K';
+  if (/(^|[^0-9])3n/.test(type)) return 'RTC-3N1K';
   if (type.includes('2n1k')) return 'RTC-2N1K';
   if (type.includes('1n1k')) return 'RTC-1N1K';
   if (type.includes('homestay')) return 'RTC-HOMESTAY';

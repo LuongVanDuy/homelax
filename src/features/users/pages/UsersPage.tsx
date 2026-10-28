@@ -56,6 +56,8 @@ export function UsersPage({ currentUser }: { currentUser: AppIdentity }) {
   });
   const users = usersQuery.data?.items || [];
   const roles = rolesQuery.data || [];
+  const roleLabel = (user: UserSummary) => [user.roleName || user.roleCode,
+    ...user.extraRoleCodes.map((code) => roles.find((role) => role.code === code)?.name || code)].filter(Boolean).join(' + ');
   const currentUserId = String(currentUser?.id || '');
   const editorReady = !rolesQuery.isPending && !rolesQuery.isError && roles.length > 0;
   const busy = statusMutation.isPending || deleteMutation.isPending;
@@ -165,7 +167,7 @@ export function UsersPage({ currentUser }: { currentUser: AppIdentity }) {
                     </Box>
                   </Stack></TableCell>
                   <TableCell><Typography variant="body2" sx={{ overflowWrap: 'anywhere' }}>{user.email}</Typography><Typography variant="caption" color="text.secondary">{user.phone || 'Chưa có số điện thoại'}</Typography></TableCell>
-                  <TableCell>{user.roleName || user.roleCode || 'Chưa gán'}</TableCell>
+                  <TableCell>{roleLabel(user) || 'Chưa gán'}</TableCell>
                   <TableCell><Status status={user.status} /></TableCell>
                   <CmsActionsCell>{renderActions(user)}</CmsActionsCell>
                 </TableRow>)}</TableBody>
@@ -182,7 +184,7 @@ export function UsersPage({ currentUser }: { currentUser: AppIdentity }) {
                   {renderActions(user)}
                 </Stack>
                 <Stack direction="row" spacing={1} useFlexGap sx={{ mt: 1.5, flexWrap: 'wrap', alignItems: 'center' }}>
-                  <Chip size="small" label={user.roleName || user.roleCode || 'Chưa gán vai trò'} /><Status status={user.status} />
+                  <Chip size="small" label={roleLabel(user) || 'Chưa gán vai trò'} /><Status status={user.status} />
                 </Stack>
               </Box>)}
             </Stack>

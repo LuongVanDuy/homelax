@@ -1,9 +1,10 @@
 import { CmsFilterField, CmsActionsCell, CmsRowActions, CmsPageHeader, CmsListCard, CmsFilterBar, CmsBadge as Chip, CmsTable as Table, CmsTablePagination as TablePagination } from '../../../components/cms';
 
 import { useState } from 'react';
-import { Avatar, Box, Button, Divider, InputAdornment, LinearProgress, MenuItem, Paper, Stack, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
-import { Archive, ArchiveRestore, Building2, Eye, MapPin, Pencil, Plus, Search, ShieldCheck, Trash2 } from 'lucide-react';
+import { Avatar, Box, Button, Checkbox, Divider, InputAdornment, LinearProgress, MenuItem, Paper, Stack, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { Archive, ArchiveRestore, Building2, ExternalLink, Eye, MapPin, Pencil, Plus, Search, ShieldCheck, Trash2, X } from 'lucide-react';
 import { useNavigate } from 'react-router';
+import { routeHref } from '../../../app/router/routePaths';
 import { designTokens } from '../../../app/theme/tokens';
 import { ConfirmDialog } from '../../../components/ui/dialogs/ConfirmDialog';
 import { EmptyState } from '../../../components/ui/feedback/EmptyState';
@@ -19,7 +20,18 @@ import type { BuildingRecord } from '../building.types';
 import { BuildingDetailsDialog } from '../components/BuildingDetailsDialog';
 import { BuildingPermissionsDialog } from '../components/BuildingPermissionsDialog';
 
-type Action = { building: BuildingRecord; kind: 'archive' | 'restore' | 'delete' };
+type Action = { buildings: BuildingRecord[]; kind: 'archive' | 'restore' | 'delete' };
+
+const actionLabels = {
+  archive: { title: 'Lưu trữ', done: 'Đã lưu trữ' },
+  restore: { title: 'Khôi phục', done: 'Đã khôi phục' },
+  delete: { title: 'Xóa vĩnh viễn', done: 'Đã xóa' },
+} as const;
+
+function buildingNames(buildings: BuildingRecord[]) {
+  const names = buildings.slice(0, 5).map((building) => `“${building.code}”`).join(', ');
+  return buildings.length > 5 ? `${names} và ${buildings.length - 5} tòa khác` : names;
+}
 
 function BuildingStatus({ building }: { building: BuildingRecord }) {
   return <Chip size="small" variant="outlined" color={building.status === 'archived' ? 'warning' : 'success'}
@@ -40,9 +52,11 @@ export function BuildingsPage({ currentUser }: { currentUser: AppIdentity }) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [details, setDetails] = useState<BuildingRecord | null>(null);
-  const [permissions, setPermissions] = useState<BuildingRecord | null>(null);
+  const [permissions, setPermissions] = useState<BuildingRecord[] | null>(null);
   const [action, setAction] = useState<Action | null>(null);
-  
+  const [selected, setSelected] = useState<BuildingRecord[]>([]);
+  const [bulkRunning, setBulkRunning] = useState(false);
+
   const debouncedSearch = useDebouncedValue(search, 350);
   const sortParams = sort === 'code'
     ? { sort: 'code' as const, order: 'asc' as const }
@@ -65,7 +79,14 @@ export function BuildingsPage({ currentUser }: { currentUser: AppIdentity }) {
   const buildings = (buildingsQuery.data?.items || []) as BuildingRecord[];
   const totalBuildings = buildingsQuery.data?.pagination.total || 0;
   const stats = statsQuery.data;
-  const busy = archiveMutation.isPending || restoreMutation.isPending || deleteMutation.isPending;
+  const busy = bulkRunning || archiveMutation.isPending || restoreMutation.isPending || deleteMutation.isPending;
+  const isSelected = (building: BuildingRecord) => selected.some((item) => item.id === building.id);
+  const toggleSelected = (building: BuildingRecord) => setSelected((items) => isSelected(building)
+    ? items.filter((item) => item.id !== building.id) : [...items, building]);
+  const pageSelected = buildings.length > 0 && buildings.every(isSelected);
+  const togglePage = () => setSelected((items) => pageSelected
+    ? items.filter((item) => !buildings.some((building) => building.id === item.id))
+    : [...items, ...buildings.filter((building) => !items.some((item) => item.id === building.id))]);
 
   const activeCount = stats?.active || 0;
   const archivedCount = stats?.archived || 0;
@@ -84,28 +105,29 @@ export function BuildingsPage({ currentUser }: { currentUser: AppIdentity }) {
 
   const confirmAction = async () => {
     if (!action || busy) return;
-    try {
-      if (action.kind === 'archive') {
-        await archiveMutation.mutateAsync(action.building.id);
-        toast.success('Đã lưu trữ tòa nhà.');
-      } else if (action.kind === 'restore') {
-        await restoreMutation.mutateAsync(action.building.id);
-        toast.success('Đã khôi phục tòa nhà.');
-      } else {
-        await deleteMutation.mutateAsync(action.building.id);
-        toast.success('Đã xóa tòa nhà.');
-      }
-      setAction(null);
-    } catch (error) { toast.error(buildingErrorMessage(error)); }
+    const mutation = action.kind === 'archive' ? archiveMutation : action.kind === 'restore' ? restoreMutation : deleteMutation;
+    setBulkRunning(true);
+    const results = await Promise.allSettled(action.buildings.map((building) => mutation.mutateAsync(building.id)));
+    setBulkRunning(false);
+    const failed = action.buildings.filter((_, index) => results[index].status === 'rejected');
+    const succeeded = action.buildings.length - failed.length;
+    setSelected((items) => items.filter((item) => !action.buildings.some((building) => building.id === item.id) || failed.includes(item)));
+    if (succeeded) toast.success(`${actionLabels[action.kind].done} ${succeeded} tòa nhà.`);
+    if (failed.length) {
+      const reason = results.find((result): result is PromiseRejectedResult => result.status === 'rejected')?.reason;
+      toast.error(`${failed.length} tòa chưa xử lý được (${buildingNames(failed)}): ${buildingErrorMessage(reason)}`);
+    }
+    setAction(null);
   };
 
   const renderActions = (building: BuildingRecord) => <CmsRowActions disabled={busy} actions={[
  {id:'view',label:'Xem chi tiết',icon:<Eye />,onClick:()=>setDetails(building)},
  {id:'edit',label:'Chỉnh sửa',icon:<Pencil />,onClick:()=>navigate('/cms/buildings/'+encodeURIComponent(building.id)+'/edit')},
  {id:'rooms',label:'Xem phòng',icon:<Building2 />,onClick:()=>openRooms(building)},
- {id:'permissions',label:'Phân quyền xem',icon:<ShieldCheck />,hidden:!admin,onClick:()=>setPermissions(building)},
- {id:'archive',label:building.status==='archived'?'Khôi phục':'Lưu trữ',icon:building.status==='archived'?<ArchiveRestore />:<Archive />,onClick:()=>setAction({building,kind:building.status==='archived'?'restore':'archive'})},
- {id:'delete',label:'Xóa vĩnh viễn',icon:<Trash2 />,danger:true,hidden:!admin,onClick:()=>setAction({building,kind:'delete'})},
+ {id:'public',label:'Xem trên website',icon:<ExternalLink />,href:routeHref.building(building.code||building.id),external:true,hidden:building.status==='archived'},
+ {id:'permissions',label:'Phân quyền xem',icon:<ShieldCheck />,hidden:!admin,onClick:()=>setPermissions([building])},
+ {id:'archive',label:building.status==='archived'?'Khôi phục':'Lưu trữ',icon:building.status==='archived'?<ArchiveRestore />:<Archive />,onClick:()=>setAction({buildings:[building],kind:building.status==='archived'?'restore':'archive'})},
+ {id:'delete',label:'Xóa vĩnh viễn',icon:<Trash2 />,danger:true,hidden:!admin,onClick:()=>setAction({buildings:[building],kind:'delete'})},
 ]} />;
 
   return <Stack spacing={3}>
@@ -148,6 +170,17 @@ export function BuildingsPage({ currentUser }: { currentUser: AppIdentity }) {
         </CmsFilterField>
       </CmsFilterBar>
 
+      {selected.length > 0 && <Stack direction="row" useFlexGap sx={{ px: 2, py: 1.25, gap: 1, alignItems: 'center', flexWrap: 'wrap', bgcolor: 'action.selected', borderTop: 1, borderBottom: 1, borderColor: 'divider' }}>
+        <Typography variant="body2" sx={{ fontWeight: 700, mr: 1 }}>Đã chọn {selected.length} tòa</Typography>
+        {admin && <Button size="small" variant="outlined" startIcon={<ShieldCheck size={16} />} disabled={busy} onClick={() => setPermissions(selected)}>Phân quyền</Button>}
+        {selected.some((building) => building.status !== 'archived') && <Button size="small" variant="outlined" startIcon={<Archive size={16} />} disabled={busy}
+          onClick={() => setAction({ buildings: selected.filter((building) => building.status !== 'archived'), kind: 'archive' })}>Lưu trữ</Button>}
+        {selected.some((building) => building.status === 'archived') && <Button size="small" variant="outlined" startIcon={<ArchiveRestore size={16} />} disabled={busy}
+          onClick={() => setAction({ buildings: selected.filter((building) => building.status === 'archived'), kind: 'restore' })}>Khôi phục</Button>}
+        {admin && <Button size="small" variant="outlined" color="error" startIcon={<Trash2 size={16} />} disabled={busy} onClick={() => setAction({ buildings: selected, kind: 'delete' })}>Xóa vĩnh viễn</Button>}
+        <Button size="small" color="inherit" startIcon={<X size={16} />} disabled={busy} onClick={() => setSelected([])} sx={{ ml: 'auto' }}>Bỏ chọn</Button>
+      </Stack>}
+
       {buildingsQuery.isPending ? <LoadingState label="Đang tải tòa nhà…" minHeight={280} /> : !visible.length ? <EmptyState
         icon={<Building2 size={36} />} title={totalBuildings ? 'Không tìm thấy tòa nhà' : 'Chưa có tòa nhà'}
         description={totalBuildings ? 'Thử thay đổi từ khóa hoặc bộ lọc.' : 'Tạo tòa nhà đầu tiên để bắt đầu quản lý inventory.'}
@@ -156,6 +189,8 @@ export function BuildingsPage({ currentUser }: { currentUser: AppIdentity }) {
           : <Button onClick={() => navigate('/cms/buildings/new')}>Thêm tòa nhà</Button>} /> : <>
         <TableContainer sx={{ display: { xs: 'none', md: 'block' } }}>
           <Table><TableHead><TableRow>
+            <TableCell padding="checkbox"><Checkbox checked={pageSelected} indeterminate={!pageSelected && buildings.some(isSelected)} onChange={togglePage}
+              slotProps={{ input: { 'aria-label': 'Chọn tất cả tòa trên trang' } }} /></TableCell>
             <TableCell>Tòa nhà</TableCell><TableCell>Địa chỉ</TableCell><TableCell>Loại hình</TableCell><TableCell>Phòng / giá</TableCell><TableCell>Vị trí</TableCell><TableCell>Trạng thái</TableCell><CmsActionsCell>Thao tác</CmsActionsCell>
           </TableRow></TableHead><TableBody>
             {visible.map((building) => <TableRow
@@ -169,11 +204,15 @@ export function BuildingsPage({ currentUser }: { currentUser: AppIdentity }) {
                 event.preventDefault();
                 navigate(`/cms/buildings/${encodeURIComponent(building.id)}/edit`);
               }}
+              selected={isSelected(building)}
               sx={{ cursor: 'pointer' }}
             >
+              <TableCell padding="checkbox" onClick={(event) => event.stopPropagation()} onKeyDown={(event) => event.stopPropagation()}>
+                <Checkbox checked={isSelected(building)} onChange={() => toggleSelected(building)} slotProps={{ input: { 'aria-label': `Chọn tòa ${building.code}` } }} />
+              </TableCell>
               <TableCell><Stack direction="row" spacing={1.5} sx={{ alignItems: 'center' }}>
                 <Avatar variant="rounded" src={building.coverImage || building.images[0] || undefined} sx={{ width: 48, height: 48, bgcolor: designTokens.colors.brand[100] }}><Building2 size={20} /></Avatar>
-                <Box><Typography variant="body2" sx={{ fontWeight: 700 }}>{building.name}</Typography><Typography variant="caption" color="text.secondary">{building.code}</Typography></Box>
+                <Typography variant="body2" sx={{ fontWeight: 700 }}>{building.code}</Typography>
               </Stack></TableCell>
               <TableCell><Typography variant="body2">{building.address}</Typography><Typography variant="caption" color="text.secondary">{building.ward || '-'}</Typography></TableCell>
               <TableCell><Chip size="small" variant="outlined" label={building.ownerType === 'tiny' ? 'Homelax' : 'Đối tác'} color={building.ownerType === 'tiny' ? 'primary' : 'default'} /></TableCell>
@@ -187,8 +226,9 @@ export function BuildingsPage({ currentUser }: { currentUser: AppIdentity }) {
         <Stack divider={<Divider />} sx={{ display: { xs: 'flex', md: 'none' } }}>
           {visible.map((building) => <Box key={building.id} sx={{ p: 2 }}>
             <Stack direction="row" spacing={1.5} sx={{ alignItems: 'start' }}>
+              <Checkbox checked={isSelected(building)} onChange={() => toggleSelected(building)} sx={{ ml: -1, mt: 0.5 }} slotProps={{ input: { 'aria-label': `Chọn tòa ${building.code}` } }} />
               <Avatar variant="rounded" src={building.coverImage || building.images[0] || undefined} sx={{ width: 52, height: 52 }}><Building2 size={20} /></Avatar>
-              <Box sx={{ minWidth: 0, flex: 1 }}><Typography sx={{ fontWeight: 800 }}>{building.name}</Typography><Typography variant="body2" color="text.secondary">{building.code} · {building.address}</Typography></Box>
+              <Box sx={{ minWidth: 0, flex: 1 }}><Typography sx={{ fontWeight: 800 }}>{building.code}</Typography><Typography variant="body2" color="text.secondary">{building.address}</Typography></Box>
               {renderActions(building)}
             </Stack>
             <Stack direction="row" spacing={1} useFlexGap sx={{ mt: 1.5, flexWrap: 'wrap' }}>
@@ -216,14 +256,16 @@ export function BuildingsPage({ currentUser }: { currentUser: AppIdentity }) {
         setDetails(null);
       }}
     />}
-    {permissions && admin && <BuildingPermissionsDialog building={permissions} onClose={() => setPermissions(null)} />}
+    {permissions && admin && <BuildingPermissionsDialog buildings={permissions} onClose={() => setPermissions(null)}
+      // Selected rows hold viewer lists from before this save; reselect from fresh data.
+      onSaved={() => setSelected([])} />}
     <ConfirmDialog open={Boolean(action)} loading={busy} onClose={() => setAction(null)} onConfirm={confirmAction}
-      title={action?.kind === 'delete' ? 'Xóa vĩnh viễn tòa nhà?' : action?.kind === 'restore' ? 'Khôi phục tòa nhà?' : 'Lưu trữ tòa nhà?'}
+      title={action ? `${actionLabels[action.kind].title} ${action.buildings.length > 1 ? `${action.buildings.length} tòa nhà` : 'tòa nhà'}?` : ''}
       description={action ? action.kind === 'delete'
-        ? `Xóa “${action.building.name}”? API sẽ chặn nếu tòa còn phòng hoặc lịch xem. Thao tác xóa thành công không thể hoàn tác.`
-        : action.kind === 'restore' ? `Khôi phục “${action.building.name}” về trạng thái hoạt động?`
-          : `Lưu trữ “${action.building.name}”? Tòa sẽ ẩn khỏi luồng public nhưng giữ dữ liệu.` : ''}
-      confirmLabel={action?.kind === 'delete' ? 'Xóa vĩnh viễn' : action?.kind === 'restore' ? 'Khôi phục' : 'Lưu trữ'}
+        ? `Xóa ${buildingNames(action.buildings)}? API sẽ chặn tòa còn phòng hoặc lịch xem. Thao tác xóa thành công không thể hoàn tác.`
+        : action.kind === 'restore' ? `Khôi phục ${buildingNames(action.buildings)} về trạng thái hoạt động?`
+          : `Lưu trữ ${buildingNames(action.buildings)}? Tòa sẽ ẩn khỏi luồng public nhưng giữ dữ liệu.` : ''}
+      confirmLabel={action ? actionLabels[action.kind].title : ''}
       danger={action?.kind === 'delete'} />
   </Stack>;
 }

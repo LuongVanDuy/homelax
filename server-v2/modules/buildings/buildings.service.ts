@@ -16,7 +16,7 @@ import {
 import { PostgresService } from '../../database/postgres.service.js';
 import {
   canAccessBuilding,
-  isPrivilegedBuildingRole,
+  isPrivilegedBuildingUser,
   mapBuildingRow,
   mapRoomRow,
 } from '../../database/row-mappers.js';
@@ -191,7 +191,7 @@ export class BuildingsService {
   private searchSql(user: any, query: BuildingListQuery) {
     const isCmsScope = this.assertCmsReadAccess(user, query.scope);
     const requireAccess = Boolean(
-      isCmsScope && user && !isPrivilegedBuildingRole(user.roleCode),
+      isCmsScope && user && !isPrivilegedBuildingUser(user),
     );
     const search = query.search.trim();
     const pattern = escapedLike(search);
@@ -543,7 +543,7 @@ export class BuildingsService {
   async stats(user: any) {
     this.assertCmsReadAccess(user, 'cms');
     const requireAccess = Boolean(
-      user && !isPrivilegedBuildingRole(user.roleCode),
+      user && !isPrivilegedBuildingUser(user),
     );
     const result = await this.db.query<{
       active: number;
@@ -691,7 +691,9 @@ export class BuildingsService {
       );
     }
 
-    const lookup = String(data.id || data.code || '').trim();
+    // Match existing buildings by id only: codes are editable, so a create that
+    // reuses another building's code must hit the duplicate check, not update it.
+    const lookup = String(data.id || '').trim();
     const existing = lookup
       ? await this.rawDetail(lookup)
       : null;
@@ -706,19 +708,20 @@ export class BuildingsService {
       });
     }
 
+    // The code doubles as the building's name and may be renamed after creation.
     const requestedCode = String(data.code || '').trim().toUpperCase();
-    const cleanCode = existing?.code || requestedCode || `BLD-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
-    const cleanName = String(data.name || existing?.name || '').trim();
+    const cleanCode = requestedCode || existing?.code || `BLD-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
+    const cleanName = requestedCode ? cleanCode : String(data.name || existing?.name || cleanCode).trim();
     const cleanAddress = String(data.address ?? existing?.address ?? '').trim();
     const hostName = String(data.hostName ?? existing?.hostName ?? '').trim();
     const hostPhone = String(data.hostPhone ?? existing?.hostPhone ?? '').trim();
     const hostEmail = String(data.hostEmail ?? existing?.hostEmail ?? '').trim();
     const hostAddress = String(data.hostAddress ?? existing?.hostAddress ?? '').trim();
 
-    if (!cleanName || !cleanAddress || !hostName || !hostPhone || !hostAddress) {
+    if (!cleanName || !cleanAddress || !hostName || !hostPhone) {
       throw new HttpException(
         {
-          error: 'Vui lòng nhập đủ tên tòa, địa chỉ và thông tin chủ nhà/người quản lý.',
+          error: 'Vui lòng nhập đủ mã tòa, địa chỉ và thông tin chủ nhà/người quản lý.',
         },
         HttpStatus.BAD_REQUEST,
       );
@@ -759,9 +762,7 @@ export class BuildingsService {
       );
     }
 
-    const privileged = isPrivilegedBuildingRole(
-      user?.roleCode || '',
-    );
+    const privileged = isPrivilegedBuildingUser(user);
 
     const id =
       existing?.id ||
@@ -783,116 +784,138 @@ export class BuildingsService {
 
     const allowedViewerIds = existing?.allowedViewerIds || [];
 
-    const result = await this.db.query(
-      `
-        INSERT INTO buildings (
-          id, code, name, is_tiny, owner_type,
-          owner_id, created_by, allowed_viewer_ids,
-          status, deleted_at, rating,
-          address, district, ward, city, province,
-          latitude, longitude,
-          vacant_rooms_count, min_price, max_price,
-          cover_image, images, media_360, rooms,
-          host_name, host_phone, host_email,
-          amenities_pccc, amenities_building,
-          amenities_building_chung,
-          amenities_building_an_ninh,
-          amenities_building_pccc,
-          amenities_building_thoat_nan,
-          host_address,
-          updated_at
-        ) VALUES (
-          $1,$2,$3,$4,$5,$6,$7,$8::jsonb,
-          $9,$10,$11,$12,$13,$14,$15,$16,
-          $17,$18,$19,$20,$21,$22,$23::jsonb,$24::jsonb,$25::jsonb,
-          $26,$27,$28,$29::jsonb,$30::jsonb,
-          $31::jsonb,$32::jsonb,$33::jsonb,$34::jsonb,
-          $35,NOW()
-        )
-        ON CONFLICT (id) DO UPDATE SET
-          code = EXCLUDED.code,
-          name = EXCLUDED.name,
-          is_tiny = EXCLUDED.is_tiny,
-          owner_type = EXCLUDED.owner_type,
-          owner_id = EXCLUDED.owner_id,
-          created_by = EXCLUDED.created_by,
-          allowed_viewer_ids = EXCLUDED.allowed_viewer_ids,
-          status = EXCLUDED.status,
-          deleted_at = EXCLUDED.deleted_at,
-          rating = EXCLUDED.rating,
-          address = EXCLUDED.address,
-          district = EXCLUDED.district,
-          ward = EXCLUDED.ward,
-          city = EXCLUDED.city,
-          province = EXCLUDED.province,
-          latitude = EXCLUDED.latitude,
-          longitude = EXCLUDED.longitude,
-          vacant_rooms_count = EXCLUDED.vacant_rooms_count,
-          min_price = EXCLUDED.min_price,
-          max_price = EXCLUDED.max_price,
-          cover_image = EXCLUDED.cover_image,
-          images = EXCLUDED.images,
-          media_360 = EXCLUDED.media_360,
-          rooms = EXCLUDED.rooms,
-          host_name = EXCLUDED.host_name,
-          host_phone = EXCLUDED.host_phone,
-          host_email = EXCLUDED.host_email,
-          amenities_pccc = EXCLUDED.amenities_pccc,
-          amenities_building = EXCLUDED.amenities_building,
-          amenities_building_chung = EXCLUDED.amenities_building_chung,
-          amenities_building_an_ninh = EXCLUDED.amenities_building_an_ninh,
-          amenities_building_pccc = EXCLUDED.amenities_building_pccc,
-          amenities_building_thoat_nan = EXCLUDED.amenities_building_thoat_nan,
-          host_address = EXCLUDED.host_address,
-          updated_at = NOW()
-        RETURNING *
-      `,
-      [
-        id,
-        cleanCode,
-        cleanName,
-        ownerType === 'tiny',
-        ownerType,
-        ownerId,
-        createdBy,
-        JSON.stringify(allowedViewerIds),
-        existing?.status || 'active',
-        existing?.deletedAt || null,
-        Number(existing?.rating ?? 0),
-        cleanAddress,
-        data.district ?? existing?.district ?? '',
-        data.ward ?? existing?.ward ?? '',
-        data.city ?? existing?.city ?? 'Hà Nội',
-        data.province ??
-          existing?.province ??
-          data.city ??
-          existing?.city ??
-          'Hà Nội',
-        data.latitude === undefined
-          ? existing?.latitude ?? null
-          : Number(data.latitude),
-        data.longitude === undefined
-          ? existing?.longitude ?? null
-          : Number(data.longitude),
-        Number(existing?.vacantRoomsCount ?? 0),
-        Number(existing?.minPrice ?? 0),
-        Number(existing?.maxPrice ?? 0),
-        data.coverImage ?? existing?.coverImage ?? '',
-        JSON.stringify(data.images ?? existing?.images ?? []),
-        JSON.stringify(data.media360 ?? existing?.media360 ?? []),
-        JSON.stringify(existing?.rooms ?? []),
-        hostName,
-        hostPhone,
-        hostEmail,
-        JSON.stringify(existing?.amenitiesPccc ?? []),
-        JSON.stringify(existing?.amenitiesBuilding ?? []),
-        JSON.stringify(existing?.amenitiesBuildingChung ?? []),
-        JSON.stringify(existing?.amenitiesBuildingAnNinh ?? []),
-        JSON.stringify(existing?.amenitiesBuildingPccc ?? []),
-        JSON.stringify(existing?.amenitiesBuildingThoatNan ?? []),
-        hostAddress,
-      ],
-    );
+    const result = await this.db.transaction(async (client) => {
+      const upserted = await client.query(
+        `
+          INSERT INTO buildings (
+            id, code, name, is_tiny, owner_type,
+            owner_id, created_by, allowed_viewer_ids,
+            status, deleted_at, rating,
+            address, district, ward, city, province,
+            latitude, longitude,
+            vacant_rooms_count, min_price, max_price,
+            cover_image, images, media_360, rooms,
+            host_name, host_phone, host_email,
+            amenities_pccc, amenities_building,
+            amenities_building_chung,
+            amenities_building_an_ninh,
+            amenities_building_pccc,
+            amenities_building_thoat_nan,
+            host_address,
+            updated_at
+          ) VALUES (
+            $1,$2,$3,$4,$5,$6,$7,$8::jsonb,
+            $9,$10,$11,$12,$13,$14,$15,$16,
+            $17,$18,$19,$20,$21,$22,$23::jsonb,$24::jsonb,$25::jsonb,
+            $26,$27,$28,$29::jsonb,$30::jsonb,
+            $31::jsonb,$32::jsonb,$33::jsonb,$34::jsonb,
+            $35,NOW()
+          )
+          ON CONFLICT (id) DO UPDATE SET
+            code = EXCLUDED.code,
+            name = EXCLUDED.name,
+            is_tiny = EXCLUDED.is_tiny,
+            owner_type = EXCLUDED.owner_type,
+            owner_id = EXCLUDED.owner_id,
+            created_by = EXCLUDED.created_by,
+            allowed_viewer_ids = EXCLUDED.allowed_viewer_ids,
+            status = EXCLUDED.status,
+            deleted_at = EXCLUDED.deleted_at,
+            rating = EXCLUDED.rating,
+            address = EXCLUDED.address,
+            district = EXCLUDED.district,
+            ward = EXCLUDED.ward,
+            city = EXCLUDED.city,
+            province = EXCLUDED.province,
+            latitude = EXCLUDED.latitude,
+            longitude = EXCLUDED.longitude,
+            vacant_rooms_count = EXCLUDED.vacant_rooms_count,
+            min_price = EXCLUDED.min_price,
+            max_price = EXCLUDED.max_price,
+            cover_image = EXCLUDED.cover_image,
+            images = EXCLUDED.images,
+            media_360 = EXCLUDED.media_360,
+            rooms = EXCLUDED.rooms,
+            host_name = EXCLUDED.host_name,
+            host_phone = EXCLUDED.host_phone,
+            host_email = EXCLUDED.host_email,
+            amenities_pccc = EXCLUDED.amenities_pccc,
+            amenities_building = EXCLUDED.amenities_building,
+            amenities_building_chung = EXCLUDED.amenities_building_chung,
+            amenities_building_an_ninh = EXCLUDED.amenities_building_an_ninh,
+            amenities_building_pccc = EXCLUDED.amenities_building_pccc,
+            amenities_building_thoat_nan = EXCLUDED.amenities_building_thoat_nan,
+            host_address = EXCLUDED.host_address,
+            updated_at = NOW()
+          RETURNING *
+        `,
+        [
+          id,
+          cleanCode,
+          cleanName,
+          ownerType === 'tiny',
+          ownerType,
+          ownerId,
+          createdBy,
+          JSON.stringify(allowedViewerIds),
+          existing?.status || 'active',
+          existing?.deletedAt || null,
+          Number(existing?.rating ?? 0),
+          cleanAddress,
+          data.district ?? existing?.district ?? '',
+          data.ward ?? existing?.ward ?? '',
+          data.city ?? existing?.city ?? 'Hà Nội',
+          data.province ??
+            existing?.province ??
+            data.city ??
+            existing?.city ??
+            'Hà Nội',
+          data.latitude === undefined
+            ? existing?.latitude ?? null
+            : Number(data.latitude),
+          data.longitude === undefined
+            ? existing?.longitude ?? null
+            : Number(data.longitude),
+          Number(existing?.vacantRoomsCount ?? 0),
+          Number(existing?.minPrice ?? 0),
+          Number(existing?.maxPrice ?? 0),
+          data.coverImage ?? existing?.coverImage ?? '',
+          JSON.stringify(data.images ?? existing?.images ?? []),
+          JSON.stringify(data.media360 ?? existing?.media360 ?? []),
+          JSON.stringify(existing?.rooms ?? []),
+          hostName,
+          hostPhone,
+          hostEmail,
+          JSON.stringify(existing?.amenitiesPccc ?? []),
+          JSON.stringify(existing?.amenitiesBuilding ?? []),
+          JSON.stringify(existing?.amenitiesBuildingChung ?? []),
+          JSON.stringify(existing?.amenitiesBuildingAnNinh ?? []),
+          JSON.stringify(existing?.amenitiesBuildingPccc ?? []),
+          JSON.stringify(existing?.amenitiesBuildingThoatNan ?? []),
+          hostAddress,
+        ],
+      );
+
+      // Rooms, bookings and legacy commissions denormalize the building code/name.
+      if (existing && (existing.code !== cleanCode || existing.name !== cleanName)) {
+        const previousCode = String(existing.code || '');
+        await client.query(
+          `UPDATE rooms SET building_code = $2, building_name = $3
+           WHERE building_id = $1 OR lower(COALESCE(building_code, '')) = lower($4)`,
+          [id, cleanCode, cleanName, previousCode],
+        );
+        await client.query(
+          `UPDATE bookings SET building_code = $2
+           WHERE building_id = $1 OR lower(COALESCE(building_code, '')) = lower($3)`,
+          [id, cleanCode, previousCode],
+        );
+        await client.query(
+          `UPDATE commissions SET building_code = $1 WHERE lower(COALESCE(building_code, '')) = lower($2)`,
+          [cleanCode, previousCode],
+        );
+      }
+      return upserted;
+    });
 
     const saved = mapBuildingRow(result.rows[0]);
     if (Array.isArray(data.amenityIds)) {
@@ -1034,7 +1057,7 @@ export class BuildingsService {
     viewerIds: Array<string | number>,
     user: any,
   ) {
-    if (!isPrivilegedBuildingRole(user?.roleCode || '')) {
+    if (!isPrivilegedBuildingUser(user)) {
       throw new ForbiddenException({
         error: 'Bạn không có quyền phân quyền tòa nhà.',
       });

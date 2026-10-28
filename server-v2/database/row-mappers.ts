@@ -266,12 +266,18 @@ export function isPrivilegedBuildingRole(roleCode: string) {
   ].includes(String(roleCode || '').toLowerCase());
 }
 
+/** True when the primary role or any extra role grants all-building access. */
+export function isPrivilegedBuildingUser(user: { roleCode?: string; roleCodes?: string[] } | null | undefined) {
+  if (!user) return false;
+  return [user.roleCode || '', ...(user.roleCodes || [])].some(isPrivilegedBuildingRole);
+}
+
 export function canAccessBuilding(
   building: Record<string, any>,
   user: Record<string, any> | null | undefined,
 ) {
   if (!user) return false;
-  if (isPrivilegedBuildingRole(user.roleCode)) return true;
+  if (isPrivilegedBuildingUser(user)) return true;
 
   const uid = String(user.id || '').trim().toLowerCase();
   const ownerId = String(

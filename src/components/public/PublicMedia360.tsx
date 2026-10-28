@@ -113,10 +113,11 @@ export function PublicMedia360({
   return <>
     <Box sx={{ mt: inline ? 0 : 1.5, display: 'flex', justifyContent: 'flex-end' }}>
       <Button
-        variant="outlined"
-        startIcon={<View size={18} aria-hidden="true" />}
+        variant="contained"
+        size="large"
+        startIcon={<View size={22} aria-hidden="true" />}
         onClick={() => setSelected(first)}
-        sx={{ minHeight: 40, width: 'auto', whiteSpace: 'nowrap' }}
+        sx={{ minHeight: 48, px: 2.5, width: 'auto', whiteSpace: 'nowrap', fontSize: 16, fontWeight: 800, boxShadow: '0 6px 18px rgba(16,29,48,.18)' }}
       >
         Xem 360°
       </Button>

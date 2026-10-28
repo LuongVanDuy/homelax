@@ -13,7 +13,11 @@ export const CMS_ROLE_SCREENS = [
 
 export const ROLE_SYSTEM_CODES = ['admin', 'superadmin'] as const;
 export const ROLE_FIXED_AUTHORITY_CODES = ['ctv_sale', 'commission_accountant', 'customer'] as const;
-export const BOOKING_SCOPES = ['none', 'all', 'assigned'] as const;
+/** Only configurable CMS roles can be stacked onto an account as extra roles. */
+export function isCombinableRoleCode(code: string) {
+  return ![...ROLE_SYSTEM_CODES, ...ROLE_FIXED_AUTHORITY_CODES, 'unassigned'].includes(code as never);
+}
+export const BOOKING_SCOPES =['none', 'all', 'assigned'] as const;
 export const bookingScopeSchema = z.enum(BOOKING_SCOPES);
 export const DEAL_SCOPES = ['none', 'all', 'assigned'] as const;
 export const dealScopeSchema = z.enum(DEAL_SCOPES);

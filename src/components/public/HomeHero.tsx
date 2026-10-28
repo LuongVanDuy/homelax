@@ -108,18 +108,10 @@ export function HomeHero({
                 }}
               >
                 <Box component="span" sx={{ display: "block" }}>
-                  Quản lý vận hành phòng trọ/ccmn
+                  Quản lý vận hành
                 </Box>
-                <Box
-                  component="span"
-                  sx={{
-                    display: "block",
-                    color: design.accent,
-                    fontSize: "1.35em",
-                    mt: 0.5,
-                  }}
-                >
-                  tại Hà Nội
+                <Box component="span" sx={{ display: "block" }}>
+                  phòng trọ/ccmn tại Hà Nội
                 </Box>
               </Typography>
               <Typography sx={{ mt: 2, fontSize: { xs: '1.0625rem', sm: '1.25rem' }, fontWeight: 600 }}>

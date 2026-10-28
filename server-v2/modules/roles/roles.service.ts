@@ -112,7 +112,7 @@ export class RolesService {
                 r.deal_can_manage_rental_schedule, r.deal_can_manage_lifecycle,
                 r.created_at, r.updated_at, COUNT(u.id)::int AS user_count
          FROM roles r
-         LEFT JOIN users u ON u.role_code = r.code
+         LEFT JOIN users u ON u.role_code = r.code OR u.extra_role_codes ? r.code
          ${where}
          GROUP BY r.id
          ORDER BY ${sortColumn} ${order}, r.id ASC
@@ -358,7 +358,7 @@ export class RolesService {
       if (authorityChanged) {
         await client.query(
           `UPDATE refresh_tokens SET revoked_at = NOW()
-           WHERE revoked_at IS NULL AND user_id IN (SELECT id FROM users WHERE role_code = $1)`,
+           WHERE revoked_at IS NULL AND user_id IN (SELECT id FROM users WHERE role_code = $1 OR extra_role_codes ? $1)`,
           [data.code],
         );
       }
@@ -384,7 +384,7 @@ export class RolesService {
         throw new ForbiddenException({ success: false, error: 'Vai trò này đang được dùng cho luồng đăng ký tài khoản.' });
       }
       const users = await client.query<{ count: number }>(
-        'SELECT COUNT(*)::int AS count FROM users WHERE role_code = $1',
+        'SELECT COUNT(*)::int AS count FROM users WHERE role_code = $1 OR extra_role_codes ? $1',
         [role.code],
       );
       if (Number(users.rows[0]?.count || 0) > 0) {

@@ -28,7 +28,7 @@ export function HomeConsultation() {
       <PublicContainer>
         <Stack direction={{ xs: 'column', sm: 'row' }} sx={{ gap: 2, alignItems: { sm: 'center' }, justifyContent: 'space-between' }}>
           <Box><Typography component="h2" sx={{ fontSize: { xs: 22, md: 26 }, fontWeight: 800 }}>Cần Homelax hỗ trợ?</Typography>
-            <Typography color="text.secondary" sx={{ mt: .5 }}>Thuê phòng, lắp phòng hoặc quản lý vận hành.</Typography></Box>
+            <Typography color="text.secondary" sx={{ mt: .5 }}>Thuê phòng, lấp phòng hoặc quản lý vận hành.</Typography></Box>
           <Button variant="contained" startIcon={<MessageCircle size={18} />} onClick={() => setOpen(true)} sx={{ whiteSpace: 'nowrap', flexShrink: 0, minHeight: 44 }}>Đăng ký tư vấn</Button>
         </Stack>
       </PublicContainer>

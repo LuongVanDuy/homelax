@@ -2,7 +2,8 @@ import { CmsFilterField, CmsActionsCell, CmsRowActions, CmsPageHeader, CmsListCa
 
 import { useState } from 'react';
 import { Autocomplete, Avatar, Box, Button, Divider, InputAdornment, LinearProgress, MenuItem, Paper, Stack, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
-import { Archive, ArchiveRestore, DoorOpen, Eye, Pencil, Plus, Search, Trash2 } from 'lucide-react';
+import { Archive, ArchiveRestore, DoorOpen, ExternalLink, Eye, Pencil, Plus, Search, Trash2 } from 'lucide-react';
+import { routeHref } from '../../../app/router/routePaths';
 import type { AppIdentity } from '../../auth/identityStore';
 import type { RoomType } from '@tinyhouse/contracts';
 import { useNavigate, useSearchParams } from 'react-router';
@@ -110,6 +111,7 @@ export function RoomsPage({ currentUser }: { currentUser: AppIdentity }) {
   const renderActions = (room: RoomType) => <CmsRowActions disabled={busy} actions={[
  {id:'view',label:'Xem chi tiết',icon:<Eye />,onClick:()=>setDetails(room)},
  {id:'edit',label:'Chỉnh sửa',icon:<Pencil />,onClick:()=>navigate('/cms/rooms/'+encodeURIComponent(room.id)+'/edit')},
+ {id:'public',label:'Xem trên website',icon:<ExternalLink />,href:routeHref.room(room.id),external:true,hidden:room.lifecycleStatus==='archived'},
  {id:'archive',label:room.lifecycleStatus==='archived'?'Khôi phục':'Lưu trữ',icon:room.lifecycleStatus==='archived'?<ArchiveRestore />:<Archive />,onClick:()=>setAction({room,kind:room.lifecycleStatus==='archived'?'restore':'archive'})},
  {id:'delete',label:'Xóa vĩnh viễn',icon:<Trash2 />,danger:true,hidden:!hardDelete,onClick:()=>setAction({room,kind:'delete'})},
 ]} />;

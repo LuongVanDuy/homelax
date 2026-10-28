@@ -11,7 +11,7 @@ function Detail({ label, value }: { label: string; value?: string | number | nul
 export function BuildingDetailsDialog({ building, onEdit, onClose }: { building: BuildingRecord; onEdit: () => void; onClose: () => void }) {
   return <Dialog open fullWidth maxWidth="md" onClose={onClose}>
     <DialogTitle><Stack direction="row" spacing={1.5} sx={{ alignItems: 'center' }}>
-      <Building2 size={22} /><Box><Typography sx={{ fontWeight: 800 }}>{building.name}</Typography><Typography variant="caption" color="text.secondary">{building.code}</Typography></Box>
+      <Building2 size={22} /><Typography sx={{ fontWeight: 800 }}>Tòa {building.code}</Typography>
     </Stack></DialogTitle>
     <DialogContent dividers>
       <Stack spacing={3}>
@@ -37,7 +37,6 @@ export function BuildingDetailsDialog({ building, onEdit, onClose }: { building:
           <Detail label="Họ tên" value={building.hostName} />
           <Detail label="Số điện thoại" value={building.hostPhone} />
           <Detail label="Email" value={building.hostEmail} />
-          <Detail label="Địa chỉ" value={building.hostAddress} />
         </Box>
         {building.hostPhone && <Button size="small" startIcon={<Phone size={16} />} href={`tel:${building.hostPhone}`} sx={{ alignSelf: 'flex-start' }}>Gọi chủ nhà</Button>}
       </Stack>

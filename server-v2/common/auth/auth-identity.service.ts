@@ -4,7 +4,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { CMS_ROLE_SCREENS } from '@tinyhouse/contracts';
+import { CMS_ROLE_SCREENS, isCombinableRoleCode } from '@tinyhouse/contracts';
 import type { PoolClient, QueryResultRow } from 'pg';
 import { PostgresService } from '../../database/postgres.service.js';
 import type {
@@ -26,6 +26,7 @@ type IdentityRow = QueryResultRow & {
   phone: string | null;
   role_code: string | null;
   role_name: string | null;
+  extra_role_codes: unknown;
   status: string;
   avatar: string | null;
   allowed_screens: unknown;
@@ -42,6 +43,44 @@ type IdentityRow = QueryResultRow & {
   deal_can_manage_rental_schedule: boolean | null;
   deal_can_manage_lifecycle: boolean | null;
 };
+
+const ROLE_AUTHORITY_COLUMNS = `
+  COALESCE(r.allowed_screens, '[]'::jsonb) AS allowed_screens,
+  COALESCE(r.booking_scope, 'none') AS booking_scope,
+  COALESCE(r.booking_can_assign, FALSE) AS booking_can_assign,
+  COALESCE(r.booking_can_reassign, FALSE) AS booking_can_reassign,
+  COALESCE(r.booking_can_transition, FALSE) AS booking_can_transition,
+  COALESCE(r.booking_can_cancel, FALSE) AS booking_can_cancel,
+  COALESCE(r.booking_can_reschedule, FALSE) AS booking_can_reschedule,
+  COALESCE(r.deal_scope, 'none') AS deal_scope,
+  COALESCE(r.deal_can_create, FALSE) AS deal_can_create,
+  COALESCE(r.deal_can_create_direct, FALSE) AS deal_can_create_direct,
+  COALESCE(r.deal_can_manage_contract_deposit, FALSE) AS deal_can_manage_contract_deposit,
+  COALESCE(r.deal_can_manage_rental_schedule, FALSE) AS deal_can_manage_rental_schedule,
+  COALESCE(r.deal_can_manage_lifecycle, FALSE) AS deal_can_manage_lifecycle
+`;
+const AUTHORITY_FLAGS = [
+  'booking_can_assign', 'booking_can_reassign', 'booking_can_transition', 'booking_can_cancel', 'booking_can_reschedule',
+  'deal_can_create', 'deal_can_create_direct', 'deal_can_manage_contract_deposit', 'deal_can_manage_rental_schedule', 'deal_can_manage_lifecycle',
+] as const;
+const SCOPE_RANK = { none: 0, assigned: 1, all: 2 } as const;
+
+/** An account with extra roles gets the union of screens, the widest scopes and every granted flag. */
+function mergeRoleAuthority(target: QueryResultRow, roles: QueryResultRow[]) {
+  for (const role of roles) {
+    const screens = new Set([
+      ...(Array.isArray(target.allowed_screens) ? target.allowed_screens : []),
+      ...(Array.isArray(role.allowed_screens) ? role.allowed_screens : []),
+    ]);
+    target.allowed_screens = [...screens];
+    for (const scope of ['booking_scope', 'deal_scope'] as const) {
+      const current = (target[scope] || 'none') as keyof typeof SCOPE_RANK;
+      const next = (role[scope] || 'none') as keyof typeof SCOPE_RANK;
+      if ((SCOPE_RANK[next] ?? 0) > (SCOPE_RANK[current] ?? 0)) target[scope] = next;
+    }
+    for (const flag of AUTHORITY_FLAGS) target[flag] = Boolean(target[flag]) || Boolean(role[flag]);
+  }
+}
 
 function normalizeStatus(status: unknown) {
   return String(status || '').trim().toLowerCase();
@@ -76,21 +115,10 @@ export class AuthIdentityService {
           u.phone,
           u.role_code,
           COALESCE(r.name, u.role_name) AS role_name,
+          u.extra_role_codes,
           u.status,
           u.avatar,
-          COALESCE(r.allowed_screens, '[]'::jsonb) AS allowed_screens,
-          COALESCE(r.booking_scope, 'none') AS booking_scope,
-          COALESCE(r.booking_can_assign, FALSE) AS booking_can_assign,
-          COALESCE(r.booking_can_reassign, FALSE) AS booking_can_reassign,
-          COALESCE(r.booking_can_transition, FALSE) AS booking_can_transition,
-          COALESCE(r.booking_can_cancel, FALSE) AS booking_can_cancel,
-          COALESCE(r.booking_can_reschedule, FALSE) AS booking_can_reschedule,
-          COALESCE(r.deal_scope, 'none') AS deal_scope,
-          COALESCE(r.deal_can_create, FALSE) AS deal_can_create,
-          COALESCE(r.deal_can_create_direct, FALSE) AS deal_can_create_direct,
-          COALESCE(r.deal_can_manage_contract_deposit, FALSE) AS deal_can_manage_contract_deposit,
-          COALESCE(r.deal_can_manage_rental_schedule, FALSE) AS deal_can_manage_rental_schedule,
-          COALESCE(r.deal_can_manage_lifecycle, FALSE) AS deal_can_manage_lifecycle
+          ${ROLE_AUTHORITY_COLUMNS}
         FROM users u
         LEFT JOIN roles r ON r.code = u.role_code
         WHERE u.id = $1
@@ -103,6 +131,12 @@ export class AuthIdentityService {
     if (!row) return null;
 
     const roleCode = String(row.role_code || 'unassigned');
+    const extraCodes = isCombinableRoleCode(roleCode) && Array.isArray(row.extra_role_codes)
+      ? row.extra_role_codes.map(String).filter(isCombinableRoleCode) : [];
+    const extraRoles = extraCodes.length ? (await query(
+      `SELECT ${ROLE_AUTHORITY_COLUMNS} FROM roles r WHERE r.code = ANY($1::text[])`, [extraCodes],
+    )).rows : [];
+    mergeRoleAuthority(row, extraRoles);
     if (roleCode === 'customer') {
       row.allowed_screens = [];
       row.booking_scope = 'none';
@@ -129,6 +163,7 @@ export class AuthIdentityService {
       email: String(row.email || '').trim().toLowerCase(),
       phone: row.phone || '',
       roleCode,
+      roleCodes: [roleCode, ...extraCodes],
       roleName: row.role_name || roleCode,
       status: row.status || 'Chờ duyệt',
       avatar: row.avatar || '',

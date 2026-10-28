@@ -2311,4 +2311,33 @@ export const DATABASE_MIGRATIONS: readonly DatabaseMigration[] = [
         ON CONFLICT DO NOTHING;
     `,
   },
+  {
+    id: '20261027_049_room_type_3n1k',
+    sql: `
+      INSERT INTO room_type_catalog(id, code, name, status, sort_order, source)
+        VALUES ('RTC-3N1K', '3n1k', '3N1K', 'active', 50, 'feedback_20261027')
+        ON CONFLICT DO NOTHING;
+      UPDATE rooms SET room_type_catalog_id = 'RTC-3N1K' WHERE room_type_catalog_id = 'RTC-3N2K';
+      UPDATE room_type_catalog SET status = 'archived', updated_at = NOW()
+        WHERE id IN ('RTC-2N2K', 'RTC-3N2K');
+    `,
+  },
+  {
+    id: '20261028_050_user_extra_roles',
+    sql: `
+      ALTER TABLE users ADD COLUMN IF NOT EXISTS extra_role_codes JSONB NOT NULL DEFAULT '[]'::jsonb
+        CHECK (jsonb_typeof(extra_role_codes) = 'array');
+    `,
+  },
+  {
+    // Labels only: building_manager keeps all-building access and is the BTV who
+    // posts/manages buildings; accountant keeps per-building access and is QLTN.
+    id: '20261028_051_swap_btv_qltn_labels',
+    sql: `
+      UPDATE roles SET name = CASE code WHEN 'building_manager' THEN 'BTV' ELSE 'Quản lý Tòa nhà' END, updated_at = NOW()
+        WHERE (code = 'building_manager' AND name = 'Quản lý Tòa nhà') OR (code = 'accountant' AND name = 'BTV');
+      UPDATE users u SET role_name = r.name, updated_at = NOW()
+        FROM roles r WHERE r.code = u.role_code AND u.role_code IN ('building_manager', 'accountant');
+    `,
+  },
 ];
