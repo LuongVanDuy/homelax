@@ -77,6 +77,9 @@ export default function HomePage() {
       </HomeHero>
 
       <Box sx={{ mt: design.sectionGap }}>
+        <HomeImpact />
+      </Box>
+      <Box sx={{ mt: design.sectionGap }}>
         <HomeMap>
           <HomeMapIntro ownerType={mapOwnerType} onOwnerTypeChange={setMapOwnerType} />
           <HomeMapCanvas ward={mapWard} onWardChange={setMapWard}>
@@ -105,7 +108,6 @@ export default function HomePage() {
       <Box sx={{ mt: design.sectionGap }}>
         <HomeBrandValues />
       </Box>
-      <HomeImpact />
       <HomePartnership />
       <HomeConsultation />
     </Box></ThemeProvider>
