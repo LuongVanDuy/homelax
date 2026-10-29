@@ -31,13 +31,13 @@ function Hero() {
       <Box sx={{ py: { xs: 5, md: 9 }, display: 'grid', gridTemplateColumns: { xs: 'minmax(0, 1fr)', md: 'minmax(0, 1.15fr) minmax(0, .85fr)' }, gap: { xs: 4, md: 8 }, alignItems: 'center' }}>
         <Stack sx={{ gap: 2.5, alignItems: 'flex-start' }}>
           <Typography sx={{ ...s.eyebrow, px: 1.5, py: .75, borderRadius: 1, bgcolor: '#FFF1E0' }}>{landlordHero.eyebrow}</Typography>
-          <Typography id="landlord-title" component="h1" sx={{ fontSize: { xs: '2.25rem', sm: '3rem', lg: '4rem' }, fontWeight: 800, lineHeight: 1.12, letterSpacing: '-.03em', textTransform: 'uppercase', color: design.navy }}>
-            {landlordHero.title}<Box component="span" sx={{ display: 'block', color: design.accent }}>{landlordHero.highlight}</Box>
+          <Typography id="landlord-title" component="h1" sx={{ fontSize: { xs: '2.375rem', sm: '3rem', lg: '4rem' }, fontWeight: 800, lineHeight: 1.15, letterSpacing: '-.02em', textTransform: 'uppercase', color: design.navy }}>
+            {landlordHero.title}<Box component="span" sx={{ display: 'block', mt: { xs: 1, md: .5 }, color: design.accent }}>{landlordHero.highlight}</Box>
           </Typography>
-          <Typography sx={{ ...s.body, fontSize: { xs: '1rem', md: '1.125rem' } }}>{landlordHero.description}</Typography>
+          <Typography sx={{ ...s.body, fontSize: { xs: '1.0625rem', md: '1.125rem' }, lineHeight: { xs: 1.9, md: 1.75 } }}>{landlordHero.description}</Typography>
           <Stack component="ul" sx={{ listStyle: 'none', p: 0, m: 0, gap: 1.25 }}>
             {landlordHero.benefits.map(item => <Stack component="li" key={item} direction="row" sx={{ gap: 1.5, alignItems: 'center' }}>
-              <Box sx={{ width: 26, height: 26, flexShrink: 0, display: 'grid', placeItems: 'center', borderRadius: '50%', bgcolor: '#FFF1E0', color: design.accent }}><Check size={15} aria-hidden="true" /></Box>
+              <Box sx={{ width: 26, height: 26, flexShrink: 0, display: 'grid', placeItems: 'center', borderRadius: '50%', bgcolor: '#FFF1E0', border: '1px solid #FBD9B4', color: design.accent }}><Check size={15} aria-hidden="true" /></Box>
               <Typography sx={{ fontSize: { xs: '1rem', md: '1.0625rem' }, color: design.navy }}>{item}</Typography>
             </Stack>)}
           </Stack>
