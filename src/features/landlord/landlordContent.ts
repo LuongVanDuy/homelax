@@ -1,48 +1,174 @@
-import type { LandlordContent } from './LandlordLanding';
-
-/** Editorial copy for F047–F050; user authorized creative wording on 2026-09-29. */
-export const landlordContent: LandlordContent = {
-  headline: 'Bạn có phòng trọ, chung cư mini muốn cho thuê?',
-  introduction: 'Kết nối với Homelax để trao đổi nhu cầu và tìm phương án hợp tác phù hợp với tòa nhà của bạn.',
-  audiences: [
-    'Chủ nhà đang có phòng cần cho thuê',
-    'Chủ nhà chuẩn bị đưa tòa nhà vào khai thác',
-    'Chủ nhà muốn tìm đối tác hỗ trợ cho thuê',
+/** Landlord & operator landing copy from the 2026-10-29 reference design (AI Studio "Homelax Chủ nhà & Thầu"). */
+export const landlordHero = {
+  eyebrow: 'Dành cho chủ nhà & đơn vị thầu khai thác nhà cho thuê',
+  title: 'Thảnh thơi sinh lời',
+  highlight: 'cùng Quản gia Homelax',
+  description: 'Homelax mang đến giải pháp quản lý & vận hành tối ưu dành cho chủ nhà và đơn vị thuê thầu. Chúng tôi hỗ trợ quản lý cư dân, chăm sóc khách thuê, bảo trì tài sản, kiểm soát thu chi và hồ sơ thuế, giúp hoạt động cho thuê bài bản, giảm áp lực quản lý và hạn chế thất thoát.',
+  benefits: [
+    'Bớt cảnh bị khách gọi xử lý sự cố ngày đêm',
+    'Hạn chế mất khách, mất uy tín vì vận hành kém',
+    'Nắm rõ thu chi, công nợ và hồ sơ thuế',
   ],
-  challenges: [
-    'Tìm khách thuê phù hợp với phòng và điều kiện cho thuê.',
-    'Cập nhật thông tin phòng và theo dõi lịch hẹn xem phòng.',
-    'Dành thời gian trao đổi và dẫn khách xem phòng.',
+  note: 'Trao đổi theo hiện trạng tòa nhà và nhu cầu thực tế, chưa cần quyết định hợp tác.',
+  imageCaption: 'Đồng hành cùng chủ nhà & đơn vị thầu tại Hà Nội',
+  pillars: ['Chuẩn hóa', 'Minh bạch', 'Đồng hành', 'Bền vững'],
+} as const;
+
+export const landlordPainPoints = {
+  eyebrow: '2 vai trò 1 bài toán vận hành',
+  title: 'Bạn đang',
+  highlight: 'đau đầu ở khâu nào?',
+  description: 'Chủ nhà cần giữ giá trị tài sản và bớt gánh nặng. Đơn vị thầu cần giữ khách thuê, uy tín và hiệu quả kinh doanh. Homelax bắt đầu từ đúng vấn đề của từng bên.',
+  roles: [
+    {
+      label: '01 / Chủ sở hữu tài sản',
+      title: 'Có nhà cho thuê, nhưng lúc nào cũng phải tự lo?',
+      description: 'Bạn muốn tài sản tạo dòng tiền, không phải tạo thêm một công việc toàn thời gian.',
+      cta: 'Tôi là chủ nhà',
+      role: 'owner',
+      items: [
+        { icon: 'home', title: 'Phòng trống, doanh thu không đều', description: 'Tự đăng tin, dẫn khách, xử lý phòng trống trong khi chi phí vận hành vẫn phát sinh.' },
+        { icon: 'phone', title: 'Việc lớn nhỏ tìm đến cả ngày', description: 'Điện nước, hỏng hóc, phản ánh của cư dân đều cần bạn đứng ra xử lý.' },
+        { icon: 'calculator', title: 'Thu chi và tình trạng tài sản khó nắm', description: 'Tiền thuê, công nợ, sửa chữa nằm rải rác ở nhiều bảng và tin nhắn.' },
+        { icon: 'shield', title: 'Lo ngại rủi ro khi giao vận hành', description: 'Muốn có người quản lý thay nhưng vẫn cần quyền kiểm soát, báo cáo và trách nhiệm rõ ràng.' },
+      ],
+    },
+    {
+      label: '02 / Đơn vị thầu, đơn vị khai thác',
+      title: 'Phòng đã kín, nhưng vận hành vẫn làm bạn mất tiền?',
+      description: 'Lấp đầy phòng mới là bước đầu. Giữ khách, giữ uy tín và kiểm soát chi phí mới là bài toán dài hạn.',
+      cta: 'Tôi là đơn vị thầu khai thác',
+      role: 'operator',
+      items: [
+        { icon: 'users', title: 'Khách thuê không hài lòng, khó giữ lâu', description: 'Phản hồi chậm, trải nghiệm thiếu nhất quán khiến khách ngại tái ký, dễ chuyển đi.' },
+        { icon: 'alert', title: 'Một sự cố nhỏ có thể ảnh hưởng uy tín', description: 'Điện nước, vệ sinh, kỹ thuật không xử lý kịp khiến đơn vị khai thác bị phàn nàn.' },
+        { icon: 'layers', title: 'Nhiều tòa nhà, quy trình càng rối', description: 'Nhân sự, lịch bảo trì, công nợ và việc bàn giao khó theo sát bằng cách làm thủ công.' },
+        { icon: 'file', title: 'Sổ sách, hóa đơn và thuế gây áp lực', description: 'Hoạt động kinh doanh cần dữ liệu thu chi, chứng từ rõ ràng để đối soát và phối hợp kê khai thuế.' },
+      ],
+    },
   ],
-  solutions: [
-    'Giới thiệu thông tin phòng tới người đang tìm thuê.',
-    'Tiếp nhận nhu cầu và phối hợp lịch xem phòng.',
-    'Trao đổi phương án hợp tác theo tình trạng tòa nhà và nhu cầu của chủ nhà.',
+  conclusion: {
+    before: 'Lấp đầy phòng mới chỉ là ',
+    first: 'bước đầu',
+    middle: '. Duy trì chất lượng dịch vụ, giữ chân khách thuê, kiểm soát chi phí và bảo vệ dòng tiền mới là ',
+    second: 'bài toán dài hạn',
+    after: ' mà cả chủ nhà lẫn đơn vị thầu cần giải quyết!',
+  },
+} as const;
+
+export const landlordModel = {
+  title: 'Quản gia Homelax',
+  subtitle: 'Mô hình quản lý & vận hành tối ưu',
+  highlight: '10+1',
+  description: 'Homelax kết hợp con người, quy trình và công nghệ để giảm gánh nặng vận hành, hạn chế sai sót. Nhờ đó, chủ nhà và đơn vị thầu có thể kiểm soát hoạt động cho thuê minh bạch hơn, hạn chế thất thoát và nâng cao hiệu quả khai thác.',
+  stats: [
+    { value: '10', label: 'Nhân sự chuyên môn phối hợp' },
+    { value: '01', label: 'Hệ thống phần mềm quản lý' },
   ],
-};
+  features: [
+    { icon: 'users', title: 'Có nhân sự phụ trách thay vì tự ôm việc', description: 'Công việc được phân công đúng chuyên môn, giảm cảnh chủ nhà và đơn vị thầu phải tự xử lý mọi phát sinh.' },
+    { icon: 'workflow', title: 'Quy trình rõ ràng từ tiếp nhận đến xử lý', description: 'Phản ánh của cư dân được tiếp nhận, phân công và theo dõi, hạn chế chậm trễ làm mất uy tín.' },
+    { icon: 'monitor', title: 'Dữ liệu tập trung, hạn chế thất thoát', description: 'Hợp đồng, công nợ và thu chi được quản lý có hệ thống, dễ theo dõi và đối soát.' },
+    { icon: 'clipboard', title: 'Giao vận hành nhưng vẫn nắm quyền', description: 'Trách nhiệm, quyền phê duyệt và chế độ báo cáo được thống nhất rõ theo phạm vi hợp tác.' },
+  ],
+  cta: {
+    title: 'Đừng để một tòa nhà tốt bị kéo lùi bởi khâu vận hành!',
+    description: 'Homelax đồng hành cùng chủ nhà và đơn vị thầu tháo gỡ những điểm nghẽn trong quản lý cư dân, xử lý sự cố và kiểm soát dòng tiền.',
+    label: 'Nhận tư vấn miễn phí',
+  },
+} as const;
 
-/** FE07.7 approved scope: tenant sourcing; qualitative comparison, no fixed fees or SLA. */
-export const landlordComparison = [
-  { label: 'Công việc', self: 'Tự giới thiệu phòng, tiếp nhận liên hệ và sắp xếp lịch xem.', partner: 'Homelax hỗ trợ giới thiệu thông tin, tiếp nhận nhu cầu và phối hợp lịch xem.' },
-  { label: 'Thu nhập', self: 'Phụ thuộc giá thuê thực tế, thời gian có khách và chi phí của chủ nhà.', partner: 'Cùng phụ thuộc kết quả cho thuê thực tế; chi phí hợp tác cần được trao đổi trước.' },
-  { label: 'Dòng tiền', self: 'Chủ nhà chủ động theo dõi thời gian trống phòng và lịch thanh toán với khách.', partner: 'Lịch thanh toán và trách nhiệm của các bên được làm rõ khi trao đổi phương án hợp tác.' },
-  { label: 'Rủi ro cần cân nhắc', self: 'Thời gian tìm khách, thông tin chưa đầy đủ và lịch hẹn thay đổi.', partner: 'Cần phối hợp cập nhật tình trạng phòng, giá thuê và điều kiện cho thuê để thông tin nhất quán.' },
-  { label: 'Tiềm năng tiếp cận', self: 'Khai thác các kênh và nguồn khách do chủ nhà tự xây dựng.', partner: 'Thêm kênh giới thiệu phòng tới người tìm thuê trên hệ thống Homelax.' },
-  { label: 'Nhu cầu phù hợp', self: 'Muốn trực tiếp thực hiện các công việc tìm khách và có thời gian theo sát.', partner: 'Muốn có thêm đối tác hỗ trợ tìm khách và phối hợp các lịch xem phòng.' },
-] as const;
+export const landlordServiceGroups = {
+  eyebrow: 'Dành cho chủ nhà & đơn vị thầu khai thác',
+  title: '6 Nhóm Công Việc Vận Hành Thiết Yếu',
+  description: 'Không chỉ là tìm khách và lấp phòng. Từ quản lý cư dân, kỹ thuật đến đối soát thu chi và hồ sơ thuế, Homelax hỗ trợ những công việc phát sinh hằng ngày để chủ nhà an tâm hơn và đơn vị thầu khai thác vận hành bài bản hơn.',
+  items: [
+    { icon: 'users', title: 'Quản lý Cư dân & Hợp đồng' },
+    { icon: 'wrench', title: 'Kỹ thuật & Bảo trì Tài sản' },
+    { icon: 'shield', title: 'An ninh, An toàn & PCCC' },
+    { icon: 'scale', title: 'Hồ sơ Vận hành & Phối hợp Pháp lý' },
+    { icon: 'landmark', title: 'Thu Chi, Công Nợ & Hỗ trợ Thuế' },
+    { icon: 'trending', title: 'Khai thác Phòng & Giữ chân Khách thuê' },
+  ],
+  banner: {
+    title: 'Chủ nhà an tâm tài sản. Đơn vị thầu chủ động kinh doanh.',
+    highlight: 'Homelax hỗ trợ vận hành, chăm sóc khách thuê và kiểm soát thu chi.',
+    label: 'Nhận tư vấn vận hành',
+  },
+} as const;
 
-export const landlordSteps = [
-  { title: 'Tiếp nhận nhu cầu', timing: 'Khi bạn gửi yêu cầu', description: 'Để lại họ tên, số điện thoại và nhu cầu tư vấn qua form hoặc chủ động liên hệ Zalo.' },
-  { title: 'Trao đổi thông tin', timing: 'Sau khi tiếp nhận', description: 'Trao đổi về vị trí, tình trạng phòng, giá thuê dự kiến và mong muốn hợp tác của bạn.' },
-  { title: 'Thống nhất phương án', timing: 'Trước khi triển khai', description: 'Làm rõ phạm vi hỗ trợ, chi phí, trách nhiệm và thời điểm bắt đầu phù hợp với hai bên.' },
-  { title: 'Phối hợp triển khai', timing: 'Sau khi hai bên thống nhất', description: 'Chuẩn bị thông tin phòng, giới thiệu tới người tìm thuê và phối hợp lịch xem theo phương án đã thống nhất.' },
-] as const;
+export const landlordCases = {
+  eyebrow: 'Minh chứng xử lý công việc',
+  title: 'Quy trình vận hành thực tế & đánh giá từ cư dân',
+  description: 'Mỗi yêu cầu hỗ trợ đều được ghi nhận, theo dõi tiến độ và đánh giá sau xử lý trên hệ thống. Minh bạch từng công việc, rõ ràng từng trách nhiệm, góp phần nâng cao chất lượng dịch vụ và trải nghiệm cư dân.',
+  note: '* Dữ liệu vận hành thực tế được ghi nhận trong giai đoạn hoạt động dưới thương hiệu Tiny Houses, nay là Homelax.',
+  items: [
+    { id: '#01', code: 'PA144767', title: 'Xử lý điều hòa rò rỉ nước', completedOn: '17/10/2026', rating: 5, comment: 'tuyệt' },
+    { id: '#02', code: 'PA143567', title: 'Xử lý sự cố nút thang máy tầng 7', completedOn: '12/10/2026', rating: 5, comment: '' },
+    { id: '#03', code: 'PA142522', title: 'Hỗ trợ yêu cầu về thời hạn thanh toán tiền thuê', completedOn: '04/10/2026', rating: 5, comment: '' },
+  ],
+} as const;
 
-export const landlordFaqs = [
-  { question: 'Tôi cần chuẩn bị thông tin gì để được tư vấn?', answer: 'Bạn chỉ cần để lại họ tên và số điện thoại. Nếu thuận tiện, hãy ghi thêm địa chỉ tòa nhà, số phòng cần cho thuê và mong muốn hợp tác trong phần nhu cầu để Homelax có cơ sở trao đổi.' },
-  { question: 'Tôi có cần tạo tài khoản để đăng ký tư vấn không?', answer: 'Không. Bạn có thể gửi form tư vấn ngay trên trang này mà không cần đăng nhập hoặc tạo tài khoản.' },
-  { question: 'Homelax hỗ trợ chủ nhà những việc gì?', answer: 'Trong hình thức hợp tác tìm khách thuê, Homelax hỗ trợ giới thiệu thông tin phòng, tiếp nhận nhu cầu và phối hợp lịch xem. Phạm vi công việc cụ thể được trao đổi trước khi triển khai.' },
-  { question: 'Chi phí hợp tác được xác định như thế nào?', answer: 'Bạn có thể đăng ký tư vấn miễn phí. Chi phí cho các công việc hợp tác cụ thể sẽ được trao đổi cùng phạm vi hỗ trợ, tình trạng phòng và nhu cầu của chủ nhà trước khi hai bên quyết định triển khai.' },
-  { question: 'Bao lâu thì bắt đầu triển khai?', answer: 'Sau khi tiếp nhận, hai bên cần trao đổi thông tin và thống nhất phương án. Thời điểm bắt đầu sẽ được thống nhất dựa trên tình trạng phòng và mức độ sẵn sàng của chủ nhà.' },
-  { question: 'Gửi yêu cầu có đồng nghĩa đã ký kết hợp tác không?', answer: 'Gửi form là bước đăng ký tư vấn. Homelax sẽ trao đổi thêm để hai bên làm rõ nhu cầu và phương án trước khi quyết định hợp tác.' },
-] as const;
+export const landlordValues = {
+  eyebrow: 'Lợi ích theo đúng vai trò của bạn',
+  title: 'Cùng 1 Giải Pháp,',
+  highlight: '2 Giá Trị Thiết Thực',
+  columns: [
+    {
+      label: 'Dành cho chủ nhà',
+      title: 'Yên tâm về tài sản. Chủ động về dòng tiền.',
+      items: [
+        { icon: 'home', title: 'Tài sản được theo dõi thường xuyên', description: 'Có lịch kiểm tra, bảo trì và đầu mối tiếp nhận vấn đề phát sinh.' },
+        { icon: 'file', title: 'Nắm rõ thu chi và công nợ', description: 'Dễ đối soát tiền thuê, phí dịch vụ và chi phí vận hành theo kỳ báo cáo.' },
+        { icon: 'shield', title: 'Bớt việc nhưng không mất quyền kiểm soát', description: 'Phạm vi trách nhiệm, các khoản cần phê duyệt và cách phối hợp được thống nhất rõ.' },
+      ],
+    },
+    {
+      label: 'Dành cho đơn vị thầu / đơn vị khai thác',
+      title: 'Giữ khách thuê. Giữ uy tín. Quản lý có số liệu.',
+      items: [
+        { icon: 'users', title: 'Trải nghiệm cư dân nhất quán hơn', description: 'Có kênh tiếp nhận phản hồi và quy trình xử lý, hỗ trợ duy trì quan hệ với khách thuê.' },
+        { icon: 'wallet', title: 'Kiểm soát chi phí và công nợ', description: 'Theo dõi các khoản thu, chi và đầu việc phát sinh để hạn chế bỏ sót.' },
+        { icon: 'receipt', title: 'Dữ liệu sẵn cho đối soát, kế toán và thuế', description: 'Tổng hợp thông tin, chứng từ theo phạm vi hỗ trợ để giảm áp lực sổ sách khi vận hành nhiều phòng.' },
+      ],
+    },
+  ],
+} as const;
+
+export const landlordSteps = {
+  title: 'Tiếp Nhận Vận Hành',
+  highlight: '4 Bước',
+  description: 'Dù tòa nhà đang trống phòng hay đã kín khách, Homelax bắt đầu bằng việc hiểu cách bạn đang kinh doanh và xác định rõ phạm vi phối hợp.',
+  items: [
+    { title: 'Trao đổi nhu cầu', description: 'Chủ nhà hoặc đơn vị thầu chia sẻ loại hình, số phòng và vấn đề đang gặp trong vận hành.' },
+    { title: 'Khảo sát hiện trạng', description: 'Rà soát tình hình phòng, cư dân, công nợ, kỹ thuật và cách quản lý đang áp dụng.' },
+    { title: 'Thống nhất phương án', description: 'Làm rõ phạm vi công việc, người phụ trách, báo cáo, chi phí và quyền phê duyệt trước khi ký kết.' },
+    { title: 'Bàn giao & phối hợp vận hành', description: 'Tiếp nhận dữ liệu, thống nhất quy trình xử lý và theo dõi kết quả theo lịch báo cáo đã thỏa thuận.' },
+  ],
+} as const;
+
+export const landlordFaqs = {
+  title: 'Chủ Nhà & Đơn Vị Thầu Thường Hỏi Gì?',
+  description: 'Những băn khoăn cần rõ trước khi giao tài sản hoặc một phần hoạt động vận hành cho đơn vị khác.',
+  items: [
+    { question: 'Homelax làm việc với chủ sở hữu hay cả đơn vị thầu đang thuê khai thác?', answer: 'Cả hai. Chủ nhà có thể cần một đơn vị hỗ trợ vận hành và bảo vệ tài sản. Đơn vị thầu hoặc doanh nghiệp khai thác có thể cần chuẩn hóa chăm sóc cư dân, kỹ thuật, thu chi và báo cáo. Phạm vi công việc sẽ được trao đổi theo hiện trạng và quyền hạn của từng bên.' },
+    { question: 'Tòa nhà đã kín phòng thì có cần dịch vụ vận hành không?', answer: 'Lấp đầy phòng mới là bước đầu. Khi đã kín phòng, việc chăm sóc cư dân, xử lý sự cố, bảo trì và kiểm soát thu chi quyết định khả năng giữ khách và dòng tiền lâu dài. Homelax có thể hỗ trợ một phần hoặc toàn bộ các công việc này tùy nhu cầu.' },
+    { question: 'Đơn vị thầu có được hỗ trợ sổ sách, hóa đơn và khai thuế không?', answer: 'Có. Thu chi, công nợ và hỗ trợ thuế là một trong 6 nhóm công việc vận hành. Homelax tổng hợp dữ liệu và chứng từ theo phạm vi hỗ trợ đã thống nhất để thuận tiện đối soát và phối hợp kê khai.' },
+    { question: 'Khi giao vận hành, ai quyết định giá thuê và khoản sửa chữa?', answer: 'Quyền phê duyệt được thống nhất trước khi ký kết. Chủ nhà hoặc đơn vị thầu vẫn giữ quyền quyết định các khoản theo phạm vi đã thỏa thuận; Homelax đề xuất, thực hiện và báo cáo minh bạch.' },
+    { question: 'Đang tự quản lý thì chuyển sang Homelax có xáo trộn khách thuê không?', answer: 'Homelax khảo sát hiện trạng, tiếp nhận dữ liệu và thống nhất quy trình xử lý trước khi bàn giao, để việc chuyển đổi diễn ra theo kế hoạch và hạn chế ảnh hưởng tới cư dân.' },
+    { question: 'Homelax có hỗ trợ tìm khách khi có phòng trống không?', answer: 'Có. Khai thác phòng và giữ chân khách thuê là một trong 6 nhóm công việc Homelax hỗ trợ, bên cạnh quản lý cư dân, kỹ thuật và thu chi.' },
+    { question: 'Chi phí hợp tác và cách nhận báo cáo được xác định thế nào?', answer: 'Chi phí, nội dung và lịch báo cáo được trao đổi theo loại hình, số phòng và phạm vi công việc, rồi thống nhất trước khi ký kết. Bạn có thể đăng ký tư vấn miễn phí để nhận phương án phù hợp.' },
+  ],
+} as const;
+
+export const landlordContact = {
+  title: 'Homelax - Đơn vị hỗ trợ quản lý vận hành cho chủ nhà và đơn vị thầu khai thác tại Hà Nội',
+  hours: '08:00 – 21:00 (Thứ 2 – Chủ Nhật)',
+  formTitle: 'Nhận Tư Vấn Vận Hành Phù Hợp',
+  formDescription: 'Bạn là chủ nhà hay đơn vị thầu đang khai thác? Chia sẻ vấn đề cần hỗ trợ để Homelax trao đổi phương án phù hợp với hiện trạng tòa nhà.',
+  roles: { owner: 'Chủ nhà', operator: 'Đơn vị thầu / đơn vị khai thác' },
+  propertyTypes: ['Chung cư mini', 'Nhà trọ / phòng trọ', 'Nhà nguyên căn', 'Khác'],
+  privacy: 'Homelax bảo mật thông tin và chỉ liên hệ để tư vấn phương án theo yêu cầu của bạn.',
+} as const;
+
+export type LandlordRole = keyof typeof landlordContact.roles;
