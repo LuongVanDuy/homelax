@@ -7,7 +7,8 @@ import type { LandlordRole } from '../landlordContent';
 export default function LandlordPage() {
   // Role buttons in the pain-point cards preselect the consultation form.
   const [role, setRole] = useState<LandlordRole | ''>('');
-  return <Box sx={{ bgcolor: '#FFF', typography: 'body1' }}>
+  // Balanced wrapping keeps headings and lead paragraphs from leaving a dangling last word.
+  return <Box sx={{ bgcolor: '#FFF', typography: 'body1', '& h1, & h2, & h3': { textWrap: 'balance' }, '& p': { textWrap: 'pretty' } }}>
     <LandlordLanding onChooseRole={setRole} />
     <LandlordCooperation role={role} />
   </Box>;

@@ -193,19 +193,11 @@ function Cases() {
   };
   return <Box component="section" aria-labelledby="landlord-cases" sx={{ pb: { xs: 7, md: 10 }, bgcolor: '#F5F6F8' }}>
     <PublicContainer>
-      <Stack direction={{ xs: 'column', md: 'row' }} sx={{ gap: 2, alignItems: { md: 'flex-end' }, justifyContent: 'space-between' }}>
-        <Box sx={{ maxWidth: 880 }}>
-          <Typography sx={s.eyebrow}>{landlordCases.eyebrow}</Typography>
-          <Typography id="landlord-cases" component="h2" sx={{ ...s.heading, mt: 1, textTransform: 'uppercase', fontSize: { xs: '1.5rem', md: '2.25rem' } }}>{landlordCases.title}</Typography>
-          <Typography sx={{ ...s.body, mt: 2 }}>{landlordCases.description}</Typography>
-        </Box>
-        <Stack direction="row" sx={{ gap: 1, alignItems: 'center', flexShrink: 0, display: total > 3 ? 'flex' : { xs: 'flex', lg: 'none' } }}>
-          <Typography variant="body2" sx={{ color: design.muted, mr: 1 }}>{index + 1} / {total}</Typography>
-          <IconButton aria-label="Case trước" disabled={index === 0} onClick={() => scrollTo(index - 1)} sx={{ border: `1px solid ${design.border}` }}><ChevronLeft size={20} /></IconButton>
-          <IconButton aria-label="Case tiếp theo" disabled={index >= total - 1} onClick={() => scrollTo(index + 1)}
-            sx={{ bgcolor: design.navy, color: '#FFF', '&:hover': { bgcolor: design.navy }, '&.Mui-disabled': { bgcolor: design.border } }}><ChevronRight size={20} /></IconButton>
-        </Stack>
-      </Stack>
+      <Box sx={{ maxWidth: 900, mx: 'auto', textAlign: 'center' }}>
+        <Typography sx={s.eyebrow}>{landlordCases.eyebrow}</Typography>
+        <Typography id="landlord-cases" component="h2" sx={{ ...s.heading, mt: 1, textTransform: 'uppercase', fontSize: { xs: '1.5rem', md: '2.25rem' } }}>{landlordCases.title}</Typography>
+        <Typography sx={{ ...s.body, mt: 2, maxWidth: 760, mx: 'auto' }}>{landlordCases.description}</Typography>
+      </Box>
       <Box ref={track} onScroll={event => {
         const element = event.currentTarget;
         const width = (element.children[0] as HTMLElement | undefined)?.offsetWidth || 1;
@@ -242,6 +234,12 @@ function Cases() {
           </Box>
         </Stack>)}
       </Box>
+      <Stack direction="row" sx={{ mt: 3, gap: 1, alignItems: 'center', justifyContent: 'center', display: total > 3 ? 'flex' : { xs: 'flex', lg: 'none' } }}>
+        <IconButton aria-label="Case trước" disabled={index === 0} onClick={() => scrollTo(index - 1)} sx={{ border: `1px solid ${design.border}` }}><ChevronLeft size={20} /></IconButton>
+        <Typography variant="body2" sx={{ color: design.muted, minWidth: 48, textAlign: 'center' }}>{index + 1} / {total}</Typography>
+        <IconButton aria-label="Case tiếp theo" disabled={index >= total - 1} onClick={() => scrollTo(index + 1)}
+          sx={{ bgcolor: design.navy, color: '#FFF', '&:hover': { bgcolor: design.navy }, '&.Mui-disabled': { bgcolor: design.border } }}><ChevronRight size={20} /></IconButton>
+      </Stack>
       <Typography variant="body2" sx={{ mt: 4, textAlign: 'center', fontStyle: 'italic', color: design.muted }}>{landlordCases.note}</Typography>
     </PublicContainer>
   </Box>;

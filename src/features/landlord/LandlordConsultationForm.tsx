@@ -17,7 +17,8 @@ const emptyValues = (role: LandlordRole | ''): Values => ({
 function intakeNeed(values: Values) {
   return [
     `Vai trò: ${values.role ? landlordContact.roles[values.role] : ''}`,
-    values.issue && `Vấn đề cần hỗ trợ: ${values.issue}`,
+    // Service titles carry non-breaking spaces for display; store plain text.
+    values.issue && `Vấn đề cần hỗ trợ: ${values.issue.replace(/ /g, ' ')}`,
     `Khu vực: ${values.ward}`,
     `Loại hình: ${values.propertyType}`,
     values.rooms && `Số lượng phòng/căn: ${values.rooms}`,
